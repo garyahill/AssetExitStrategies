@@ -1,0 +1,56 @@
+@import "./palette.less";
+
+/* General Styles */
+html, body {
+  height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: @main-bg;
+    color: @primary-text;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    color: @link-text;
+    text-decoration: none;
+    &:hover {
+        color: @primary-dark;
+    }
+  }
+  
+  a:hover {
+    color: @primary-dark;
+  }
+  
+  /* Buttons */
+  .button-primary {
+    background-color: @primary-button-bg;
+    color: @primary-button-text;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    &:hover {
+        background-color: @primary-light;
+    }
+  }  
+  
+  .button-secondary {
+    background-color: @secondary-button-bg;
+    color: @secondary-button-text;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    &:hover {
+        background-color: @secondary-light;
+    }
+  }
+  
+  .accent {
+    color: @accent-color-1;
+  }

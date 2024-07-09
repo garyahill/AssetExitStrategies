@@ -1,14 +1,14 @@
-body {
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% auto;
-    background-color: hsl(275, 100%, 97%);
-  }
-  
-  .app-container {
-    display: flex;
-    flex-direction: row;     /* This prop defines the main axis (row is the default) */
-    justify-content: center; /* This prop aligns items on the main axis */
-    align-items: flex-end;   /* This prop aligns items on the cross axis */
-  }
-  
+@import "./theme/palette.less";
+
+.container {
+  font-family: Arial, sans-serif;
+  background-color: @main-bg;
+  color: @primary-text;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  display: flex;
+  margin: 20px;
+}

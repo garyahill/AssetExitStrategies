@@ -1,29 +1,33 @@
 import * as React from "react";
 import "./theme/global.less";
 import './App.less';
-import Header from './components/layout/header';
-import Sidebar from './components/layout/sideBar';
-import Footer from './components/layout/footer';
-import Content from './components/layout/content';
+import {Header, Footer, SideBar, Content }from './components/layout';
+import { Greeting, NoAssets } from "./components/controls";
+import { getObjectFromLocalStorage } from "./utilities/storage";
+
 
 function App() {
 
+	const data = retrieveData("user");
+	const initialElement = data ? <Greeting name={"Bob"} /> : <NoAssets />;
+
 	return (
-		<div className="container">
+		<div className="app-container">
 			<Header />
-			<div className={"body"}>
-				<Sidebar />
+			<div className={"main-content"}>
+				<SideBar />
 				<Content>
-					<h2>Welcome to Asset Exit Strategies</h2>
-					<p>
-						Asset Exit Strategies is an application to help you plan profit taking strategies for comodities and securities.  It provides you with the tools to model the sale of these assets across
-						multiple price levels with variable weighting and visualize the results of your strategy.  This application can provide you with insight into potential outcomes to help you maximize your returns and minimize risk.
-					</p>
+					{initialElement}
 				</Content>
 			</div>
 			<Footer />
 		</div>
 	);
+}
+
+// TODO: Retrieve correct data type
+function retrieveData(key: string): object | null{
+	return getObjectFromLocalStorage(key);
 }
 
 export default App;

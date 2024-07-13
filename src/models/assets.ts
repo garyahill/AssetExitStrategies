@@ -1,7 +1,3 @@
-export interface Assets {
-	Assets: ReadonlyArray<Asset>;
-}
-
 export interface Asset {
 	AssetName: string;
 	Method: "Units" | "Percentage";

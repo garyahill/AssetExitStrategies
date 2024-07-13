@@ -1,8 +1,8 @@
 import { Profile } from './profile';
-import { Assets } from './assets';
+import { Asset } from './assets';
 
 export type UserData = {
 	Profile: Profile;
-	Assets: Assets;
+	Assets: ReadonlyArray<Asset>;
 };
 

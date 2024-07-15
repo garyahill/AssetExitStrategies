@@ -14,18 +14,23 @@ body {
     box-sizing: border-box;
   }
   
-  a {
+  .link-styles() {
     color: @link-text;
     text-decoration: none;
+
     &:hover {
-        color: @primary-dark;
+      color: @primary-dark;
     }
   }
+
+  a {
+    .link-styles()
+  }
   
-  a:hover {
+ .link {
     color: @primary-dark;
   }
-
+  
   h1 {
     color: @primary-dark;
   }
@@ -35,30 +40,60 @@ body {
   }
   
   /* Buttons */
+  button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+
   .button-primary {
     background-color: @primary-button-bg;
     color: @primary-button-text;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
     margin-top: 10px;
+
     &:hover {
         background-color: @primary-light;
+    }
+
+    &:disabled {
+        background-color: @secondary-bg;
+        color: @secondary-text;
     }
   }  
   
   .button-secondary {
     background-color: @secondary-button-bg;
     color: @secondary-button-text;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
     margin-top: 10px;
     &:hover {
         background-color: @secondary-light;
     }
   }
-  
+
+  /* Form Styles */
+  .form-group {
+    margin-bottom: 15px;
+
+    label {
+        display: inline-block;
+        width: 95px;
+    }
+
+    input {
+        padding: 10px;
+        border: 1px solid @input-border;
+        border-radius: 4px;
+
+        &:focus, &:focus-visible {
+            border-color: @primary-color;
+            outline: none;
+        }
+    }
+  }
+
+  // Accents
   .accent {
     color: @accent-color-1;
   }

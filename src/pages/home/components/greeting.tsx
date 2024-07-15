@@ -4,7 +4,7 @@ interface GreetingProps {
 	name: string;
 }
 
-const Greeting = ({name}: GreetingProps) => {
+const Greeting: React.FC<GreetingProps> = ({name}) => {
 	return (
 		<h2>Welcome back {name}</h2>
 	);

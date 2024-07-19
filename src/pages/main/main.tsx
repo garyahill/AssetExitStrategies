@@ -4,14 +4,12 @@ import "./main.less";
 
 
 const Main = () => {
-	const { profile } = useAppContext();
+	const { profile: prof } = useAppContext();
+	const profile = prof!;
 
 	return (
-		<div className="content-container">
-			{/* TODO: Need to figure out my scheme for redirect to login if no context
-                do we actually need to have profile be nullable?
-            */}
-			<h2>{`Welcome ${profile!.Name}`}</h2>
+		<div className="main-container">
+			<h2>{`Welcome ${profile.Name}`}</h2>
 		</div>
 	);
 };

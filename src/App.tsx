@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AuthRoute from "./AuthRoute";
 import Layout from "./components/layout/layout";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
@@ -15,7 +16,7 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path="login" element={<Login />} />
 					<Route path="newaccount" element={<NewAccount />} />
-					<Route path="main" element={<Main />} />
+					<Route path="main" element={ <AuthRoute component={Main} />} />
 				</Route>
 		  </Routes>
 		</Router>

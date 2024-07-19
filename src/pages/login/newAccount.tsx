@@ -22,7 +22,6 @@ const NewAccount = () => {
 				onButtonClick={handleSubmit}
 			/>
 		</div>
-		// TODO: Add a cancel button that navigates back to login?
 	);
 };
 

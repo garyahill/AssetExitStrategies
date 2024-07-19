@@ -1,5 +1,5 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
-import { Profile, Asset } from './models';
+import React, { createContext, useState, ReactNode, useContext } from "react";
+import { Profile, Asset } from "./models";
 
 interface AppContextType {
 	profile: Profile | null;

@@ -1,7 +1,8 @@
 import React from "react";
 import Welcome from "./components/welcome";
-import "./home.less";
 import { Link } from "react-router-dom";
+import bull from "../../images/Bull.png";
+import "./home.less";
 
 // TODO: What props does this component take in if any?
 interface HomeProps {
@@ -16,6 +17,9 @@ const Home: React.FC<HomeProps> = (props) => {
 				<Link to="/login">Load Profile</Link>
 				<span>- or -</span>
 				<Link to="/newaccount">Create New Account</Link>
+			</div>
+			<div className="image-container">
+				<img src={bull} alt="Bull" />
 			</div>
 		</div>
 	);

@@ -1,5 +1,6 @@
-import { getObjectFromLocalStorage, saveObjectToLocalStorage } from "../storage";
+import { getUserDataFromLocalStorage, saveUserDataToLocalStorage } from "../storage";
 import log from "../logger";
+import { UserData } from "../../models";
 
 jest.mock("../logger", () => ({
 	__esModule: true,
@@ -15,7 +16,7 @@ const value: any = {
 	ProfileKey: "1234",
 };
 
-describe("getObjectFromLocalStorage", () => {
+describe("getUserDataFromLocalStorage", () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -24,18 +25,18 @@ describe("getObjectFromLocalStorage", () => {
 
 	it("should return the parsed object when the key exists in localStorage", () => {
 		localStorage.setItem(key, JSON.stringify(value));
-		const result = getObjectFromLocalStorage(key);
+		const result = getUserDataFromLocalStorage(key);
 		expect(result).toEqual(value);
 	});
 
 	it("should return null when the key does not exist in localStorage", () => {
-		const result = getObjectFromLocalStorage(key);
+		const result = getUserDataFromLocalStorage(key);
 		expect(result).toBeNull();
 	});
 
 	it("should return null and log an error when JSON.parse throws an error", () => {
 		localStorage.setItem(key, "invalid JSON");
-		const result = getObjectFromLocalStorage(key);
+		const result = getUserDataFromLocalStorage(key);
 		expect(result).toBeNull();
 		expect(log.error).toHaveBeenCalledWith(
 			"Error retrieving object from local storage:",
@@ -48,7 +49,7 @@ describe("getObjectFromLocalStorage", () => {
 			throw new Error("localStorage error");
 		});
 
-		const result = getObjectFromLocalStorage(key);
+		const result = getUserDataFromLocalStorage(key);
 		expect(result).toBeNull();
 		expect(log.error).toHaveBeenCalledWith(
 			"Error retrieving object from local storage:",
@@ -59,7 +60,7 @@ describe("getObjectFromLocalStorage", () => {
 	});
 });
 
-describe("saveObjectToLocalStorage", () => {
+describe("saveUserDataToLocalStorage", () => {
 
 	afterEach(() => {
 	  jest.clearAllMocks();
@@ -67,7 +68,7 @@ describe("saveObjectToLocalStorage", () => {
 	});
 
 	it("should save a valid object to local storage", () => {
-	  saveObjectToLocalStorage(key, value);
+	  saveUserDataToLocalStorage(key, value);
 	  const item = localStorage.getItem(key);
 	  expect(item).toBe(JSON.stringify(value));
 	});
@@ -77,7 +78,7 @@ describe("saveObjectToLocalStorage", () => {
 			throw new Error("StringifyParsingError");
 	  	});
 
-	  saveObjectToLocalStorage(key, {});
+	  saveUserDataToLocalStorage(key, {} as UserData);
 	  expect(log.error).toHaveBeenCalledWith(
 			"Error saving object to local storage:",
 			expect.any(Error)
@@ -89,7 +90,7 @@ describe("saveObjectToLocalStorage", () => {
 			throw new Error("QuotaExceededError");
 	  });
 
-	  saveObjectToLocalStorage(key, value);
+	  saveUserDataToLocalStorage(key, value);
 	  expect(log.error).toHaveBeenCalledWith(
 			"Error saving object to local storage:",
 			expect.any(Error)

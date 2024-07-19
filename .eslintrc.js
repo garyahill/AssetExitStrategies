@@ -206,6 +206,7 @@ module.exports = {
         ],
         "prefer-arrow/prefer-arrow-functions": "off",
         "prefer-const": "error",
+        "quotes": ["error", "double"],
         "radix": "error",
         "require-await": "off",
         "spaced-comment": [

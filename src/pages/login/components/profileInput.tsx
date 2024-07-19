@@ -1,5 +1,6 @@
 import React from "react";
 import { Profile } from "../../../models";
+import { Link } from "react-router-dom";
 import "./profileInput.less";
 
 interface ProfileInputProps {
@@ -7,15 +8,17 @@ interface ProfileInputProps {
 	buttonText?: string;
 	profile: Profile;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	onButtonClick?: () => void;
+	onButtonClick?: (e: React.FormEvent) => void;
 }
 
 const ProfileInput: React.FC<ProfileInputProps> = (props) => {
-	const { isCreate, profile, buttonText, onChange } = props;
+	const { isCreate, profile, buttonText, onChange, onButtonClick } = props;
 	const loginButtonDisabled = !profile.UserName || !profile.ProfileKey;
-	const createButtonDisabled = !profile.UserName || !profile.ProfileKey || !profile.Name;
+	const createButtonDisabled = !profile.UserName || (profile.ProfileKey.length < 8) || !profile.Name;
 
-	const profileKeyWatermark = isCreate ? "Minimum 8 characters" : undefined;
+	const item = isCreate ? { Text: "Home", Location: "/", Watermark: "Minimum 8 characters", Type: "text" } :
+		{ Text: "New Account", Location: "/newaccount", Watermark: undefined, Type: "password" };
+
 	return (
 		<div className="form-container">
 			<form>
@@ -46,19 +49,22 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 				<div className="form-group">
 					<label htmlFor="ProfileKey">Profile Key</label>
 					<input
-						type="text"
+						type={item.Type}
 						id="ProfileKey"
 						name="ProfileKey"
 						value={profile.ProfileKey}
 						onChange={onChange}
-						placeholder={profileKeyWatermark}
+						placeholder={item.Watermark}
+						minLength={8}
 						required
 					/>
 				</div>
 				<div className="form-group">
+					<Link className="link-button" to={item.Location}>{item.Text}</Link>
 					<button
 						className={"button-primary"}
-						disabled={isCreate ? createButtonDisabled : loginButtonDisabled}>
+						disabled={isCreate ? createButtonDisabled : loginButtonDisabled}
+						onClick={onButtonClick}>
 						{buttonText ? buttonText : "Login"}
 					</button>
 				</div>

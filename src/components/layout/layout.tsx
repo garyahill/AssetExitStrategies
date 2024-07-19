@@ -1,10 +1,10 @@
 import * as React from "react";
-import { BrowserRouter as Router, Route, useLocation, Outlet } from 'react-router-dom';
-import Header from './header';
-import SideBar from './sideBar';
-import Footer from './footer';
+import { useLocation, Outlet } from "react-router-dom";
+import Header from "./header";
+import SideBar from "./sideBar";
+import Footer from "./footer";
 import "../../theme/global.less";
-import './layout.less';
+import "./layout.less";
 
 const noSideBar = ["/", "/login", "/newaccount"];
 

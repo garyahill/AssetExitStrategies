@@ -93,12 +93,13 @@ let config = {
 				},
 			},
             {
-				test: /\.(png|jpg|jpeg|gif|pdf)$/,
-				type: 'asset/resource',
-				generator: {
-					filename: (file) => file.endsWith(".pdf") ? "[name].[ext]" : "[hash].[ext]"
-				},
-			},
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                  },
+                ],
+              },
             // Fonts and SVGs
 			{
 				test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,

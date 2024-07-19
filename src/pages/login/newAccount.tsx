@@ -1,14 +1,19 @@
-import React from 'react';
-import useProfile from '../../hooks/useProfile';
-import ProfileInput from './components/profileInput';
+import React from "react";
+import useProfile from "../../hooks/useProfile";
+import ProfileInput from "./components/profileInput";
 import "./newAccount.less";
 
 const NewAccount = () => {
-	const { profile, updateProfile, saveProfile } = useProfile();
+	const { profile, updateProfile, saveNewProfile } = useProfile();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		updateProfile(name, value);
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		saveNewProfile();
 	};
 
 	return (
@@ -19,9 +24,10 @@ const NewAccount = () => {
 				profile={profile}
 				buttonText="Save"
 				onChange={handleChange}
-				onButtonClick={saveProfile}
+				onButtonClick={handleSubmit}
 			/>
 		</div>
+		// TODO: Add a cancel button that navigates back to login?
 	);
 };
 

@@ -1,7 +1,7 @@
 import log from './logger';
 import { UserData } from '../models';
 
-export function getObjectFromLocalStorage(key: string): UserData | null {
+export function getUserDataFromLocalStorage(key: string): UserData | null {
 	try {
 		const item = localStorage.getItem(key);
 		if (item) {
@@ -14,7 +14,7 @@ export function getObjectFromLocalStorage(key: string): UserData | null {
 	}
 }
 
-export function saveObjectToLocalStorage(key: string, value: any): void {
+export function saveUserDataToLocalStorage(key: string, value: UserData): void {
 	try {
 		const item = JSON.stringify(value);
 		localStorage.setItem(key, item);

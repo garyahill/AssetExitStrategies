@@ -1,12 +1,14 @@
-// src/hooks/useProfile.ts
-import { useState } from 'react';
-import { Profile } from '../models';
+import { useState } from "react";
+import { Profile } from "../models";
+import {useAppContext} from "./useAppContext";
+import { getUserDataFromLocalStorage, saveUserDataToLocalStorage } from "../utilities/storage";
 
 const useProfile = () => {
+	const appContext = useAppContext();
 	const [profile, setProfile] = useState<Profile>({
-		Name: '',
-		UserName: '',
-		ProfileKey: '',
+		Name: "",
+		UserName: "",
+		ProfileKey: "",
 	});
 
 	const updateProfile = (name: string, value: string) => {
@@ -16,19 +18,31 @@ const useProfile = () => {
 		}));
 	};
 
-	const saveProfile = () => {
-		// Here you would typically save the profile to the context or an API
+	const saveNewProfile = () => {
+		const userData = { Profile: profile, Assets: [] };
+	    saveUserDataToLocalStorage(getStorageKey(), userData);
 	};
 
-	const loadProfile = () => {
-		// Code to load the profile and store in the context
+	const loadExistingProfile = () => {
+		const userData = getUserDataFromLocalStorage(getStorageKey());
+		if (userData) {
+			appContext.setProfile(userData.Profile);
+			appContext.setAssets(userData.Assets);
+			return true;
+		}
+		return false;
 	};
+
+	const getStorageKey = (): string => {
+		return `${profile.UserName}_${profile.ProfileKey}`;
+	}
 
 	return {
 		profile,
+		setProfile,
 		updateProfile,
-		saveProfile,
-		loadProfile,
+		saveNewProfile,
+		loadExistingProfile,
 	};
 };
 

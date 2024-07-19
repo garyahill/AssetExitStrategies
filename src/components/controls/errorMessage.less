@@ -1,0 +1,12 @@
+@import "../../theme/palette.less";
+@import "../../theme/mixins.less";
+
+.message-container {
+    .flex-center();
+    color: @secondary-dark;
+    visibility: hidden;
+
+    &.error {
+        visibility: visible;
+    }
+}

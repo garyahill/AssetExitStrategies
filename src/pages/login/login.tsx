@@ -10,11 +10,6 @@ const Login = () => {
 	const navigate = useNavigate();
 	const [showError, setShowError] = useState<boolean | undefined>(undefined);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		updateProfile(name, value);
-	};
-
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -31,7 +26,7 @@ const Login = () => {
 			<h2>Account Login</h2>
 			<ProfileInput
 				profile={profile}
-				onChange={handleChange}
+				onChange={updateProfile}
 				onButtonClick={handleSubmit}
 			/>
 

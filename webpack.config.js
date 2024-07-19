@@ -18,7 +18,8 @@ let config = {
         path: path.resolve(__dirname, "dist"),
         // the name of the output file 
         filename: "bundle.js",
-        clean: true // cleans the output folder before building
+        clean: true, // cleans the output folder before building
+        publicPath: '/', // Ensure that all routes are served correctly
     },
 
     // source map for debugging - it is added to the output file (bundle.js in this case)
@@ -32,7 +33,8 @@ let config = {
         static: "./dist", // the folder to serve the files from
         open: true, // opens the browser after server is successfully started
         hot: false, // Note: "hot" must be set to false for "liveReload" to work
-        watchFiles: ["src/**/*", "index.html"] // watches the files for changes
+        watchFiles: ["src/**/*", "index.html"], // watches the files for changes
+        historyApiFallback: true, // This ensures that all routes are served with index.html
         // liveReload: true, // reloads  page when files change, true by default; watch files above can be more specific
     },
 

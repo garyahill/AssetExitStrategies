@@ -7,7 +7,7 @@ interface ProfileInputProps {
 	isCreate?: boolean;
 	buttonText?: string;
 	profile: Profile;
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange: (profile: Profile) => void;
 	onButtonClick?: (e: React.FormEvent) => void;
 }
 
@@ -19,18 +19,23 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 	const item = isCreate ? { Text: "Home", Location: "/", Watermark: "Minimum 8 characters", Type: "text" } :
 		{ Text: "New Account", Location: "/newaccount", Watermark: undefined, Type: "password" };
 
+	function handleChange(property: keyof typeof profile) {
+		return (e: React.ChangeEvent<HTMLInputElement>) =>
+			onChange({ ...profile, [property]: e.target.value });
+	}
+
 	return (
 		<div className="form-container">
 			<form>
 				{isCreate &&
                 <div className="form-group">
-                	<label htmlFor="FirstName">Name</label>
+                	<label htmlFor="NameInput">Name</label>
                 	<input
                 		type="text"
-                		id="FirstName"
-                		name="Name"
+                		id="NameInput"
+                		name="NameInput"
                 		value={profile.Name}
-                		onChange={onChange}
+                		onChange={handleChange("Name")}
                 		required
                 	/>
                 </div>
@@ -42,7 +47,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 						id="UserName"
 						name="UserName"
 						value={profile.UserName}
-						onChange={onChange}
+						onChange={handleChange("UserName")}
 						required
 					/>
 				</div>
@@ -53,7 +58,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 						id="ProfileKey"
 						name="ProfileKey"
 						value={profile.ProfileKey}
-						onChange={onChange}
+						onChange={handleChange("ProfileKey")}
 						placeholder={item.Watermark}
 						minLength={8}
 						required

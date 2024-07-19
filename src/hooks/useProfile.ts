@@ -11,11 +11,8 @@ const useProfile = () => {
 		ProfileKey: "",
 	});
 
-	const updateProfile = (name: string, value: string) => {
-		setProfile(prevProfile => ({
-			...prevProfile,
-			[name]: value,
-		}));
+	const updateProfile = (profile: Profile) => {
+		setProfile(profile);
 	};
 
 	const saveNewProfile = () => {

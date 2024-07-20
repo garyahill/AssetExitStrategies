@@ -4,7 +4,7 @@ import "./main.less";
 
 
 const Main = () => {
-	const { profile: prof } = useAppContext();
+	const { profile: prof, assets } = useAppContext();
 	const profile = prof!;
 
 	return (

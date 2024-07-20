@@ -1,18 +1,20 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import {useAppContext} from "./hooks/useAppContext";
+import { useAuth } from "./AuthContext";
 
 interface PrivateRouteProps {
 	component: React.ComponentType<any>;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
-	const { profile } = useAppContext();
+	const { isAuthenticated  } = useAuth();
 
-	return profile ? (
-		<Component {...rest} />
-	) : (
-		<Navigate to="/login" />
+	return (
+		isAuthenticated ? (
+			<Component {...rest} />
+		) : (
+			<Navigate to="/login" />
+		)
 	);
 };
 

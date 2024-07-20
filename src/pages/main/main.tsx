@@ -4,8 +4,7 @@ import "./main.less";
 
 
 const Main = () => {
-	const { profile: prof, assets } = useAppContext();
-	const profile = prof!;
+	const { profile, assets } = useAppContext();
 
 	return (
 		<div className="main-container">

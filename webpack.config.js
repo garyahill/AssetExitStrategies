@@ -4,11 +4,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// TODO: DO I NEED THESE Plugins?
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let isProduction = process.env.NODE_ENV === "production";
-// console.log(process.env.NODE_ENV);
+console.log(process.env.NODE_ENV);
+console.log('NODE_ENV:', process.env.NODE_ENV);
 
 let config = {
     // the entry point to the app

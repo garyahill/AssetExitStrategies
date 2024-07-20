@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Profile } from "../models";
-import {useAppContext} from "./useAppContext";
+import { useAppContext } from "./useAppContext";
+import { useAuth } from "../AuthContext";
 import { getUserDataFromLocalStorage, saveUserDataToLocalStorage } from "../utilities/storage";
+import { defaultProfile } from "../AppContext";
 
 const useProfile = () => {
 	const appContext = useAppContext();
-	const [profile, setProfile] = useState<Profile>({
-		Name: "",
-		UserName: "",
-		ProfileKey: "",
-	});
+	const { login } = useAuth();
+	const [profile, setProfile] = useState<Profile>(defaultProfile);
 
 	const updateProfile = (profile: Profile) => {
 		setProfile(profile);
@@ -22,12 +21,12 @@ const useProfile = () => {
 
 	const loadExistingProfile = () => {
 		const userData = getUserDataFromLocalStorage(getStorageKey());
+
 		if (userData) {
 			appContext.setProfile(userData.Profile);
 			appContext.setAssets(userData.Assets);
-			return true;
+			login();
 		}
-		return false;
 	};
 
 	const getStorageKey = (): string => {

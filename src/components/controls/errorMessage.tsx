@@ -3,7 +3,7 @@ import "./errorMessage.less";
 
 export interface ErrorMessageProps {
 	message: string;
-	isVisible: boolean | undefined;
+	isVisible: boolean;
 	customStyle?: React.CSSProperties;
 }
 

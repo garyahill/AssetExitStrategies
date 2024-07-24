@@ -25,7 +25,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 	}
 
 	return (
-		<div className="form-container">
+		<div className="profile-form-container">
 			<form>
 				{isCreate &&
                 <div className="form-group">

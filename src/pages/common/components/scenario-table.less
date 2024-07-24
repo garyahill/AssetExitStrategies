@@ -1,0 +1,48 @@
+@import "../../../theme/palette.less";
+
+.table-container {
+    .scenario-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .scenario-table th {
+        border: 1px solid @input-border;
+        padding: 8px;
+        background-color: @main-bg;
+        text-align: left;
+    }
+
+    .scenario-table td {
+        border: 1px solid @input-border;
+        padding: 6px 8px;
+        
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            button {
+                width: 50px;
+                font-size: 0.75em;
+                height: 25px;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    
+    .scenario-table tr:nth-child(even) {
+        background-color: @main-bg;
+    }
+
+    .scenario-table tr:hover {
+        background-color: @primary-very-light;
+    }
+
+    .scenario-table th:last-child,
+    .scenario-table td:last-child {
+        width: 110px;
+    }
+
+}

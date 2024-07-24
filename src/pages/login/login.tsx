@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "../../hooks/useNavigation";
 import useProfile from "../../hooks/useProfile";
 import { useAuth } from "../../AuthContext";
 import ProfileInput from "./components/profileInput";
@@ -8,14 +8,14 @@ import "./login.less";
 
 const Login = () => {
 	const { profile, updateProfile, setProfile, loadExistingProfile } = useProfile();
-	const navigate = useNavigate();
 	const { isAuthenticated } = useAuth();
 	const [showError, setShowError] = useState<boolean>(false);
 	const [loginAttempted, setLoginAttempted] = useState<boolean>(false);
+	const { navigateToMain } = useNavigation();
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			navigate("/main");
+			navigateToMain();
 		} else if (loginAttempted) {
 			setProfile({ ...profile, UserName: "", ProfileKey: "" });
 			setShowError(true);

@@ -6,14 +6,14 @@ import ScenarioInput from "./components/scenarioInput";
 import PriceLevelInput from "./components/priceLevelnput";
 import ScenarioTable from "../common/components/scenario-table";
 import { Asset, PriceLevel } from "../../models";
-import "./addScenario.less";
+import "./scenario.less";
 
 // TODO: Do I want to refactor this current state thing?
 interface Progress {
 	CurrentStep: number;
 }
 
-const AddScenario = () => {
+const Scenario = () => {
 	const { assets, setAssets } = useUserData();
 	const { appState, setAppState } = useAppState();
 	const { navigateToMain } = useNavigation();
@@ -111,6 +111,4 @@ const getNewAssetId = (assets: Asset[]) => {
 	return maxVal;
 }
 
-
-
-export default AddScenario;
+export default Scenario;

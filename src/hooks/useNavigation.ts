@@ -7,14 +7,14 @@ const useNavigation = () => {
 	const navigateToNewAccount = () => navigate("/newaccount");
 	const navigateToLogin = () => navigate("/login");
 	const navigateToMain = () => navigate("/main");
-	const navigateToAddScenario = () => navigate("/addscenario");
+	const navigateToScenario = () => navigate("/scenario");
 
 	return {
 		navigateToHome,
 		navigateToNewAccount,
 		navigateToLogin,
 		navigateToMain,
-		navigateToAddScenario,
+		navigateToAddScenario: navigateToScenario,
 	};
 };
 

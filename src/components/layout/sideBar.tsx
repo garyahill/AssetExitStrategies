@@ -1,10 +1,10 @@
 import * as React from "react";
 import useNavigation from "../../hooks/useNavigation";
-import useAppContext from "../../hooks/useAppContext";
+import useAppState from "../../hooks/useAppState";
 import "./sideBar.less";
 
 const SideBar = () => {
-	const { appState, setAppState } = useAppContext();
+	const { appState, setAppState } = useAppState();
 	const {navigateToAddScenario} = useNavigation();
 	const { addingAsset } = appState;
 

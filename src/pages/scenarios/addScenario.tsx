@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import useNavigation from "../../hooks/useNavigation";
-import useAppContext from "../../hooks/useAppContext";
-import useProfile from "../../hooks/useProfile";
-import { Asset, PriceLevel } from "../../models";
+import useUserData from "../../hooks/useUserData";
+import useAppState from "../../hooks/useAppState";
 import ScenarioInput from "./components/scenarioInput";
 import PriceLevelInput from "./components/priceLevelnput";
 import ScenarioTable from "../common/components/scenario-table";
+import { Asset, PriceLevel } from "../../models";
 import "./addScenario.less";
 
 // TODO: Do I want to refactor this current state thing?
@@ -14,9 +14,10 @@ interface Progress {
 }
 
 const AddScenario = () => {
-	const { appState, setAppState, assets, setAssets } = useAppContext();
+	const { assets, setAssets } = useUserData();
+	const { appState, setAppState } = useAppState();
 	const { navigateToMain } = useNavigation();
-	const { saveAssets} = useProfile();
+	const { saveAssets} = useUserData();
 
 	const [asset, setAsset] = useState<Asset>({
 		Id: getNewAssetId(assets),

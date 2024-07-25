@@ -1,13 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import useAuthentication from "./hooks/useAuthentication";
 
 interface PrivateRouteProps {
 	component: React.ComponentType<any>;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => {
-	const { isAuthenticated  } = useAuth();
+	const { isAuthenticated  } = useAuthentication();
 
 	return (
 		isAuthenticated ? (

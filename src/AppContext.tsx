@@ -1,7 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { Profile, Asset, UserData, AppState } from "./models";
 
-
 interface AppContextType {
 	profile: Profile;
 	assets: Asset[];
@@ -19,6 +18,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 	// TODO: The commented code below is the code to be used in the final implementation
 	// const [profile, setProfile] = useState<Profile>(defaultProfile);
 	// const [assets, setAssets] = useState<Asset[]>([]);
+
 	const [appState, setAppState] = useState<AppState>({ addingAsset: false });
 
 	// TODO: The code below is for testing and developement purposes only

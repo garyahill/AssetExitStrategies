@@ -1,17 +1,18 @@
 // AuthContext.tsx
 import React, { createContext, useState, useContext, ReactNode, FC, useEffect } from "react";
 
-interface AuthContextType {
+export interface AuthContextType {
 	isAuthenticated: boolean;
 	login: () => void;
 	logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+	// TODO: Having this block of code allows you to bypass the login screen in development
 	useEffect(() => {
 		if (process.env.NODE_ENV === "development") {
 			setIsAuthenticated(true);
@@ -28,10 +29,3 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	);
 };
 
-export const useAuth = (): AuthContextType => {
-	const context = useContext(AuthContext);
-	if (!context) {
-		throw new Error("useAuth must be used within an AuthProvider");
-	}
-	return context;
-};

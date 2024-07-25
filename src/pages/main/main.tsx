@@ -1,11 +1,11 @@
 import React from "react";
-import useAppContext from "../../hooks/useAppContext";
+import useUserData from "../../hooks/useUserData";
 import NoAssets from "./components/noAssets";
 import { Profile, Asset } from "../../models";
 import "./main.less";
 
 const Main = () => {
-	const { profile, assets } = useAppContext();
+	const { profile, assets } = useUserData();
 	const noAssets = assets.length === 0;
 
 	return (

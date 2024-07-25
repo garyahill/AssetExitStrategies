@@ -1,14 +1,24 @@
-import React from "react";
-import useProfile from "../../hooks/useProfile";
+import React, {useEffect} from "react";
+import useUserData from "../../hooks/useUserData";
+import useNavigation from "../../hooks/useNavigation";
 import ProfileInput from "./components/profileInput";
+import useAuthentication from "../../hooks/useAuthentication";
 import "./newAccount.less";
 
 const NewAccount = () => {
-	const { profile, updateProfile, saveNewProfile } = useProfile();
+	const { profile, updateProfile, saveNewProfile } = useUserData();
+	const { isAuthenticated } = useAuthentication();
+	const { navigateToMain } = useNavigation();
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigateToMain();
+		}
+	}, [isAuthenticated]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		saveNewProfile();
+		saveNewProfile(profile);
 	};
 
 	return (

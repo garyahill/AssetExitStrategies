@@ -14,11 +14,13 @@ export function getUserDataFromLocalStorage(key: string): UserData | null {
 	}
 }
 
-export function saveUserDataToLocalStorage(key: string, value: UserData): void {
+export function saveUserDataToLocalStorage(key: string, value: UserData): boolean {
 	try {
 		const item = JSON.stringify(value);
 		localStorage.setItem(key, item);
+		return true;
 	} catch (error: any) {
 		log.error("Error saving object to local storage:", error);
+		return false;
 	}
 }

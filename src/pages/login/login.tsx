@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "../../hooks/useNavigation";
+import useNavigation from "../../hooks/useNavigation";
 import useProfile from "../../hooks/useProfile";
 import { useAuth } from "../../AuthContext";
 import ProfileInput from "./components/profileInput";

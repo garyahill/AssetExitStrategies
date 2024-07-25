@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigation } from "../../hooks/useNavigation";
-import { useAppContext } from "../../hooks/useAppContext";
+import useNavigation from "../../hooks/useNavigation";
+import useAppContext from "../../hooks/useAppContext";
+import useProfile from "../../hooks/useProfile";
 import { Asset, PriceLevel } from "../../models";
 import ScenarioInput from "./components/scenarioInput";
 import PriceLevelInput from "./components/priceLevelnput";
@@ -13,8 +14,9 @@ interface Progress {
 }
 
 const AddScenario = () => {
-	const { appState, setAppState, assets } = useAppContext();
+	const { appState, setAppState, assets, setAssets } = useAppContext();
 	const { navigateToMain } = useNavigation();
+	const { saveAssets} = useProfile();
 
 	const [asset, setAsset] = useState<Asset>({
 		Id: getNewAssetId(assets),
@@ -47,6 +49,18 @@ const AddScenario = () => {
 		setPriceLevelBeingEdited(undefined);
 	}
 
+	const addOrUpdateScenario = () => {
+		let updatedAssets = [...assets];
+		const index = assets.findIndex(currentAsset => currentAsset.Id === asset.Id);
+		if (index === -1) {
+			updatedAssets = [...updatedAssets,  asset];
+		} else {
+			updatedAssets[index] = asset;
+		}
+		setAssets(updatedAssets);
+		saveAssets();
+	}
+
 	const next = (value: number) => setProgress({ ...progress, CurrentStep: progress.CurrentStep + value });
 
 	return (
@@ -71,7 +85,8 @@ const AddScenario = () => {
 				<div className="button-container">
 					<button className={"button-secondary"} onClick={cancel}>Cancel</button>
 					<button className={"button-primary"} onClick={() => next(-1)} disabled={ progress.CurrentStep === 1 }>Previous</button>
-					<button className={"button-primary"} onClick={() => next(1)} disabled={ progress.CurrentStep === 2 }>Next</button>
+					<button className={"button-primary"} onClick={() => next(1)} disabled={progress.CurrentStep === 2}>Next</button>
+					<button className={"button-primary"} onClick={addOrUpdateScenario} disabled={ progress.CurrentStep === 1 }>Save</button>
 				</div>
 			</div>
 			<div className="right-container">

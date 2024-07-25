@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useNavigation } from "../../hooks/useNavigation";
-import { useAppContext } from "../../hooks/useAppContext";
+import useNavigation from "../../hooks/useNavigation";
+import useAppContext from "../../hooks/useAppContext";
 import "./sideBar.less";
 
 const SideBar = () => {

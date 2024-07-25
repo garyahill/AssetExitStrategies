@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext } from "../../hooks/useAppContext";
+import useAppContext from "../../hooks/useAppContext";
 import NoAssets from "./components/noAssets";
 import { Profile, Asset } from "../../models";
 import "./main.less";

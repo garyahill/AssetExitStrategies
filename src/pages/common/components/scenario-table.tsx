@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./scenario-table.less";
 import { Asset, PriceLevel } from "../../../models";
-
-interface CalculatedFields {
-	CumulativeSold: number;
-	RemainingAsset: number;
-	CumulativeRevenue: number;
-}
 
 interface TableContainerProps {
 	asset: Asset;
@@ -29,7 +23,7 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 
 			revenue = level.Price * level.Quantity;
 			cumulativeSold += level.Quantity;
-			remainingAsset = remainingAsset - level.Quantity;
+			remainingAsset -= level.Quantity;
 			cumulativeRevenue += revenue;
 
 			return (

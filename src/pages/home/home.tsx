@@ -6,12 +6,7 @@ import useAuthentication from "../../hooks/useAuthentication";
 import useNavigation from "../../hooks/useNavigation";
 import "./home.less";
 
-// TODO: What props does this component take in if any?
-interface HomeProps {
-	children?: React.ReactNode;
-}
-
-const Home: React.FC<HomeProps> = (props) => {
+const Home: React.FC = () => {
 	const { isAuthenticated } = useAuthentication();
 	const { navigateToMain } = useNavigation();
 

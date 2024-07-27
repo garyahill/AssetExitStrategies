@@ -6,10 +6,9 @@ import Footer from "./footer";
 import "../../theme/global.less";
 import "./layout.less";
 
-const noSideBar = ["/", "/login", "/newaccount"];
+const noSideBar = ["/", "/login", "/newaccount", "/scenario" ];
 
 function Layout() {
-	// TODO: Should this logic be moved to a custom hook or put somewhere else?
 	const showSideBar = () => {
 		const location = useLocation();
 		return !noSideBar.includes(location.pathname);

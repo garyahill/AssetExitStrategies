@@ -24,7 +24,7 @@ const Login = () => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		loadExistingProfile(profile); // TODO: Should this be a local profile variable?
+		loadExistingProfile(profile);
 		setLoginAttempted(true);
 	};
 

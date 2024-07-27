@@ -1,8 +1,10 @@
+@import "../../theme/palette.less";
+
 .scenario-container {
     display: flex;
 
     .left-container {
-        flex: 1;
+        flex: 4;
 
         .button-container {
             display: flex;
@@ -16,9 +18,19 @@
         }
     }
 
-    .right-container {
-        flex: 3;
+    .middle-container {
+        flex: 11;
         margin-left: 20px;
     }
-    
+
+    .right-container {
+        flex: 1;
+        text-align: right;
+    }
+
+    .unicode-button {
+        font-size: 1.25em;
+        padding: 0;
+        background-color: transparent;
+    }
 }

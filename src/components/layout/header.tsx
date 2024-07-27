@@ -1,11 +1,26 @@
 import * as React from "react";
+import useAuthentication from "../../hooks/useAuthentication";
+import useUserData from "../../hooks/useUserData";
+
 import "./header.less";
 
 const Header = () => {
+	const { isAuthenticated } = useAuthentication();
+	const { unloadProfile } = useUserData();
+
 	return (
-	  <div className={"header"}>
-			<h1>Asset Exit Strategies</h1>
-	  </div>
+		<div className={"main-header-container"}>
+			<div className={`flex-container ${!isAuthenticated && "unauthenticated"}`}>
+	  		<div className={"header"}>
+					<h1>Asset Exit Strategies</h1>
+				</div>
+				{isAuthenticated &&
+				<div className={"header"}>
+					<button className={"button-primary"} onClick={unloadProfile}>Log off</button>
+				</div>
+				}
+			</div>
+		</div>
 	);
 };
 

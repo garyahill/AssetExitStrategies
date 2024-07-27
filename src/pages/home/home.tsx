@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Welcome from "./components/welcome";
 import { Link } from "react-router-dom";
 import bull from "../../images/Bull.png";
+import useAuthentication from "../../hooks/useAuthentication";
+import useNavigation from "../../hooks/useNavigation";
 import "./home.less";
 
 // TODO: What props does this component take in if any?
@@ -10,6 +12,15 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = (props) => {
+	const { isAuthenticated } = useAuthentication();
+	const { navigateToMain } = useNavigation();
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			navigateToMain();
+		}
+	}, [isAuthenticated]);
+
 	return (
 		<div className="content-container">
 			<Welcome />

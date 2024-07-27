@@ -1,0 +1,35 @@
+@import "../../../theme/palette.less";
+
+.asset-card-container {
+    
+    .asset-card {
+        border: 1.0px solid @primary-light;
+        border-radius: 10px;
+        padding: 10px;
+        width: 125px;
+        height: 125px;
+        min-width: 125px;
+        margin: 0 20px 20px 0;
+        cursor: pointer;
+        box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    
+        .chart-container {
+            font-size: 55px;
+            background-color: transparent;
+            text-align: center;
+        }
+
+        .details {
+            color: @secondary-text;
+            font-size: .75em;
+            text-align: center;
+            margin-top: 3px;
+        }
+    }
+
+    .asset-card:hover {
+        background-color: @primary-very-light;
+        transform: translateY(-5px);
+    }
+}

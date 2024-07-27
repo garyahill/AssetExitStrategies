@@ -1,3 +1,7 @@
+import { Asset } from "./assets";
+
 export interface AppState {
-	addingAsset: boolean;
+	editingScenario: boolean;
+	assetBeingEdited: Asset | undefined;
+	assetBeingDisplayed: Asset | undefined;
 }

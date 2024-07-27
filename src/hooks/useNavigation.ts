@@ -8,13 +8,15 @@ const useNavigation = () => {
 	const navigateToLogin = () => navigate("/login");
 	const navigateToMain = () => navigate("/main");
 	const navigateToScenario = () => navigate("/scenario");
+	const navigateToDisplay = () => navigate("/display");
 
 	return {
 		navigateToHome,
 		navigateToNewAccount,
 		navigateToLogin,
 		navigateToMain,
-		navigateToAddScenario: navigateToScenario,
+		navigateToScenario,
+		navigateToDisplay,
 	};
 };
 

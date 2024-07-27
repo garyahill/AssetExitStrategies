@@ -1,5 +1,5 @@
 // AuthContext.tsx
-import React, { createContext, useState, useContext, ReactNode, FC, useEffect } from "react";
+import React, { createContext, useState, ReactNode, FC, useEffect } from "react";
 
 export interface AuthContextType {
 	isAuthenticated: boolean;

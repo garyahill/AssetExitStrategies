@@ -13,13 +13,14 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const defaultProfile: Profile = { Name: "", UserName: "", ProfileKey: "" };
+export const defaultAppState: AppState = { editingScenario: false, assetBeingEdited: undefined, assetBeingDisplayed: undefined };
+export const defaultAssets: Asset[] = [];
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	// TODO: The commented code below is the code to be used in the final implementation
 	// const [profile, setProfile] = useState<Profile>(defaultProfile);
-	// const [assets, setAssets] = useState<Asset[]>([]);
-
-	const [appState, setAppState] = useState<AppState>({ addingAsset: false });
+	// const [assets, setAssets] = useState<Asset[]>(defaultAssets);
+	const [appState, setAppState] = useState<AppState>(defaultAppState);
 
 	// TODO: The code below is for testing and developement purposes only
 	const TESTING_STORAGE_KEY = "garyahill_1234";
@@ -39,7 +40,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 			const userData: UserData = JSON.parse(storedProfile);
 			return userData.Assets;
 		}
-		return [];
+		return defaultAssets;
 	});
 	// TODO: The code above is for testing and developement purposes only
 

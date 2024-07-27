@@ -21,14 +21,6 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-
-            button {
-                width: 50px;
-                font-size: 0.75em;
-                height: 25px;
-                margin: 0;
-                padding: 0;
-            }
         }
     }
     
@@ -40,9 +32,17 @@
         background-color: @primary-very-light;
     }
 
-    .scenario-table th:last-child,
-    .scenario-table td:last-child {
-        width: 110px;
+    .scenario-table tr.error-row {
+        background-color: @invalid-bg;
     }
 
+    .action-column {
+        width: 75px;
+    }
+
+    .scenario-table .unicode-button {
+        font-size: 1em;
+        padding: 0;
+        background-color: transparent;
+    }
 }

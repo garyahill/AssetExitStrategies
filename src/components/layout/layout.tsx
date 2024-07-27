@@ -9,7 +9,6 @@ import "./layout.less";
 const noSideBar = ["/", "/login", "/newaccount"];
 
 function Layout() {
-
 	// TODO: Should this logic be moved to a custom hook or put somewhere else?
 	const showSideBar = () => {
 		const location = useLocation();

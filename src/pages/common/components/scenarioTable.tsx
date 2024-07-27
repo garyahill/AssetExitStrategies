@@ -1,15 +1,18 @@
 import React from "react";
-import "./scenario-table.less";
 import { Asset, PriceLevel } from "../../../models";
+import { ScenarioError } from "../../scenario/scenario";
+import "./scenarioTable.less";
 
 interface TableContainerProps {
 	asset: Asset;
-	onEdit: (priceLevelId: number) => void;
-	onDelete: (priceLevelId: number) => void;
+	onEdit?: (priceLevelId: number) => void;
+	onDelete?: (priceLevelId: number) => void;
+	onError?: (error: ScenarioError) => void; // TODO: Implement error handling
 }
 
 const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete}) => {
 	const { Method, PriceLevels } = asset;
+	const showButtons = onEdit && onDelete;
 
 	const getRows = (levels: PriceLevel[]) => {
 
@@ -19,6 +22,7 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 		let remainingAsset= asset.Quantity;
 		let cumulativeRevenue = 0;
 
+
 		return sortedLevels.map((level, index) => {
 
 			revenue = level.Price * level.Quantity;
@@ -27,19 +31,21 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 			cumulativeRevenue += revenue;
 
 			return (
-				<tr key={`row_${index}`}>
+				<tr key={`row_${index}`} className={`${remainingAsset < 0 ? "error-row" : undefined}`}>
 					<td>{level.Price}</td>
 					<td>{level.Quantity}</td>
 					<td>{cumulativeSold}</td>
 					<td>{remainingAsset}</td>
 					<td>{revenue}</td>
 					<td>{cumulativeRevenue}</td>
-					<td>
+					{showButtons &&
+					<td className="action-column">
 						<div className="button-container">
-							<button className={"button-primary"} onClick={() => onEdit(level.Id)}>Edit</button>
-							<button className={"button-secondary"} onClick={() => onDelete(level.Id)}>Delete</button>
+							<button className={"unicode-button"} title="Edit" onClick={() => onEdit(level.Id)}>📝</button>
+							<button className={"unicode-button"} title="Remove" onClick={() => onDelete(level.Id)}>🗑️</button>
 						</div>
 					</td>
+					}
 				</tr>
 			);
 		});
@@ -56,7 +62,9 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 						<th>Remaining Asset</th>
 						<th>Revenue</th>
 						<th>Cumulative Revenue</th>
-						<th>Actions</th>
+						{showButtons &&
+							<th className="action-column">Actions</th>
+						}
 					</tr>
 				</thead>
 				<tbody>

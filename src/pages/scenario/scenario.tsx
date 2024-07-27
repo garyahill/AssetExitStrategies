@@ -4,7 +4,7 @@ import useUserData from "../../hooks/useUserData";
 import useAppState from "../../hooks/useAppState";
 import ScenarioInput from "./components/scenarioInput";
 import PriceLevelInput from "./components/priceLevelnput";
-import ScenarioTable from "../common/components/scenario-table";
+import ScenarioTable from "../common/components/scenarioTable";
 import { Asset, PriceLevel } from "../../models";
 import "./scenario.less";
 
@@ -13,14 +13,19 @@ interface Progress {
 	CurrentStep: number;
 }
 
+export interface ScenarioError {
+	isError: boolean;
+	Message: string | undefined;
+}
+
 const Scenario = () => {
-	const { assets, setAssets } = useUserData();
+	const { assets, addOrUpdateScenario } = useUserData();
 	const { appState, setAppState } = useAppState();
 	const { navigateToMain } = useNavigation();
-	const { saveAssets} = useUserData();
+	const [scenarioError, setScenarioError] = useState<ScenarioError>({isError: false, Message: undefined});
 
-	const [asset, setAsset] = useState<Asset>({
-		Id: getNewAssetId(assets),
+	const [asset, setAsset] = useState<Asset>(appState.assetBeingEdited || {
+		Id: getNewAssetId(assets), // TODO: This should be done in the hook
 		AssetName: "",
 		Method: "Percentage",
 		Quantity: 0,
@@ -31,7 +36,7 @@ const Scenario = () => {
 	const [priceLevelBeingEdited, setPriceLevelBeingEdited] = useState<PriceLevel | undefined>(undefined);
 
 	const cancel = () => {
-		setAppState({ ...appState, addingAsset: false });
+		setAppState({ ...appState, editingScenario: false });
 		navigateToMain();
 	};
 
@@ -50,16 +55,9 @@ const Scenario = () => {
 		setPriceLevelBeingEdited(undefined);
 	}
 
-	const addOrUpdateScenario = () => {
-		let updatedAssets = [...assets];
-		const index = assets.findIndex(currentAsset => currentAsset.Id === asset.Id);
-		if (index === -1) {
-			updatedAssets = [...updatedAssets,  asset];
-		} else {
-			updatedAssets[index] = asset;
-		}
-		setAssets(updatedAssets);
-		saveAssets();
+	const saveScenario = () => {
+		addOrUpdateScenario(asset);
+		navigateToMain();
 	}
 
 	const next = (value: number) => setProgress({ ...progress, CurrentStep: progress.CurrentStep + value });
@@ -84,24 +82,40 @@ const Scenario = () => {
 				}
 
 				<div className="button-container">
-					<button className={"button-secondary"} onClick={cancel}>Cancel</button>
-					<button className={"button-primary"} onClick={() => next(-1)} disabled={ progress.CurrentStep === 1 }>Previous</button>
-					<button className={"button-primary"} onClick={() => next(1)} disabled={progress.CurrentStep === 2}>Next</button>
-					<button className={"button-primary"} onClick={addOrUpdateScenario} disabled={ progress.CurrentStep === 1 }>Save</button>
+
+
+					{progress.CurrentStep === 1 &&
+						<button className={"button-primary"} onClick={() => next(1)}>Next</button>
+					}
+					{progress.CurrentStep === 2 &&
+						<>
+							<button className={"button-primary"} onClick={() => next(-1)}>Previous</button>
+							<button className={"button-primary"} onClick={saveScenario}>Save</button>
+						</>
+					}
+
+
 				</div>
 			</div>
-			<div className="right-container">
+
+			<div className="middle-container">
 				{asset.PriceLevels.length > 0 &&
                     <>
                     	<h2>{"Scenario Outcome"}</h2>
                     	<ScenarioTable
                     		asset={asset}
+                    		onError={(error: ScenarioError) => setScenarioError(error)}
                     		onEdit={editPriceLevel}
                     		onDelete={deletePriceLevel}
                     	/>
                     </>
 				}
 			</div>
+
+			<div className="right-container">
+				<button className={"unicode-button"} title="Cancel" onClick={cancel}>❌</button>
+			</div>
+
 		</div>
 	);
 };

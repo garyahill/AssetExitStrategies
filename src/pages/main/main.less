@@ -1,4 +1,29 @@
+@import "../../theme/palette.less";
+
 .main-container {
-    // TODO: Do I need this class?
-    padding: 0;
+
+    .assets-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 75%;
+        margin-top: 20px;
+    }
+
+    .title-container {
+        margin-bottom: 25px;
+        
+        h4 {
+            display: inline;
+            color: @secondary-text;
+        }
+
+        .info-container {
+            display: inline-block;
+            position: relative;
+            top: -1px;
+            left: 7px;
+        }
+    }
+
+
 }

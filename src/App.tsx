@@ -8,6 +8,7 @@ import Login from "./pages/login/login";
 import NewAccount from "./pages/login/newAccount";
 import Main from "./pages/main/main";
 import Scenario from "./pages/scenario/scenario";
+import Display from "./pages/display/display";
 
 const App: React.FC = () => {
 
@@ -26,7 +27,8 @@ const App: React.FC = () => {
 						<Route path="login" element={<Login />} />
 						<Route path="newaccount" element={<NewAccount />} />
 						<Route path="main" element={<PrivateRoute component={Main} />} />
-						<Route path="scenario" element={ <PrivateRoute component={Scenario} />} />
+						<Route path="scenario" element={<PrivateRoute component={Scenario} />} />
+						<Route path="display" element={ <PrivateRoute component={Display} />} />
 					</Route>
 				</Routes>
 			</Router>

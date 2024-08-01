@@ -1,36 +1,49 @@
 @import "../../theme/palette.less";
 
 .scenario-container {
-    display: flex;
-
-    .left-container {
-        flex: 4;
-
-        .button-container {
-            display: flex;
-            justify-content: left;
-            margin-top: 20px;
     
-            button {
-                width: 100px;
-                margin-right: 10px;
-            }
+    .flex-container {
+        display: flex;
+
+
+        .left-container {
+            flex: 4;
+
+        }
+
+        .middle-container {
+            flex: 11;
+            margin-left: 20px;
+        }
+
+        .right-container {
+            flex: 1;
+            text-align: right;
+        }
+
+        .unicode-button {
+            font-size: 1.25em;
+            padding: 0;
+            background-color: transparent;
+        }
+    }
+ 
+    .scenario-button-container {
+        display: flex;
+        justify-content: right;
+        margin-top: 20px;
+
+        button {
+            width: 100px;
+            margin-right: 10px;
         }
     }
 
-    .middle-container {
-        flex: 11;
-        margin-left: 20px;
+    .modal-content {
+        h2 {
+            margin: 0 20px;
+        }
+        
     }
 
-    .right-container {
-        flex: 1;
-        text-align: right;
-    }
-
-    .unicode-button {
-        font-size: 1.25em;
-        padding: 0;
-        background-color: transparent;
-    }
 }

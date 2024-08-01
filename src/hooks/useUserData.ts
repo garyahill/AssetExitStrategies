@@ -49,6 +49,12 @@ const useUserData = () => {
 		setAppState({ ...appState, editingScenario: false });
 	}
 
+	const removeScenario = (assetId: number) => {
+		const updatedAssets = assets.filter(asset => asset.Id !== assetId);
+		setAssets(updatedAssets);
+		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
+	}
+
 	const getStorageKey = (profile: Profile): string => {
 		const { UserName, ProfileKey } = profile;
 		return `${UserName}_${ProfileKey}`;
@@ -63,6 +69,7 @@ const useUserData = () => {
 		updateProfile,
 		saveNewProfile,
 		addOrUpdateScenario,
+		removeScenario,
 		loadExistingProfile,
 		unloadProfile,
 	};

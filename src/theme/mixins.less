@@ -6,3 +6,45 @@
     align-items: center;
     justify-content: center;
 }
+
+.scenario-box-properties() {
+    border: solid 1px @input-border;
+    margin-bottom: 20px;
+    width: 390px;
+
+    h4 {
+        margin: 0;;
+        padding: 10px 10px 10px 0;
+    }
+
+    button {
+        margin-right: 4px;
+    }
+
+    .form-group {
+        padding-left: 10px;
+    }
+
+    .heading-container {
+        display: flex;
+        justify-content: space-between;
+        height: 35px;
+        margin-bottom: 20px;
+        background-color: @input-border;
+
+        .title-container {
+            display: flex;
+            padding-left: 10px;
+        
+            .info-container {
+                padding-left: 0px;
+                display: inline-block;
+                position: relative;
+                top: 7px;
+                left: -4px;
+            }
+        }
+        
+    }
+
+}

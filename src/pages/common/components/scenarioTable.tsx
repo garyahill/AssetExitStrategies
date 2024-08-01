@@ -1,13 +1,13 @@
 import React from "react";
-import { Asset, PriceLevel } from "../../../models";
-import { ScenarioError } from "../../scenario/scenario";
+import { Asset, PriceLevel, ScenarioError } from "../../../models";
+import { FormatAsDollars, FormatAsPercentage, RoundToPlaces} from "../../../utilities/numbers";
 import "./scenarioTable.less";
 
 interface TableContainerProps {
 	asset: Asset;
 	onEdit?: (priceLevelId: number) => void;
 	onDelete?: (priceLevelId: number) => void;
-	onError?: (error: ScenarioError) => void; // TODO: Implement error handling
+	onError?: (errors: ScenarioError[]) => void; // TODO: Implement error handling
 }
 
 const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete}) => {
@@ -17,27 +17,42 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 	const getRows = (levels: PriceLevel[]) => {
 
 		const sortedLevels = levels.sort((a, b) => a.Price - b.Price);
+
+		let amountSold = 0;
 		let revenue = 0;
 		let cumulativeSold = 0;
-		let remainingAsset= asset.Quantity;
+		let remainingAsset = asset.Quantity;
 		let cumulativeRevenue = 0;
+		let percentSold = 0;
 
 
 		return sortedLevels.map((level, index) => {
 
-			revenue = level.Price * level.Quantity;
-			cumulativeSold += level.Quantity;
-			remainingAsset -= level.Quantity;
-			cumulativeRevenue += revenue;
+			if (Method === "Percentage") {
+				percentSold = level.Quantity;
+				amountSold = remainingAsset * percentSold;
+				revenue = level.Price * amountSold;
+				cumulativeSold += amountSold;
+				remainingAsset -= amountSold;
+				cumulativeRevenue += revenue;
+			} else {
+				amountSold = level.Quantity;
+				revenue = level.Price * level.Quantity;
+				cumulativeSold += level.Quantity;
+				percentSold = amountSold / remainingAsset;
+				remainingAsset -= level.Quantity;
+				cumulativeRevenue += revenue;
+			}
 
 			return (
 				<tr key={`row_${index}`} className={`${remainingAsset < 0 ? "error-row" : undefined}`}>
-					<td>{level.Price}</td>
-					<td>{level.Quantity}</td>
-					<td>{cumulativeSold}</td>
-					<td>{remainingAsset}</td>
-					<td>{revenue}</td>
-					<td>{cumulativeRevenue}</td>
+					<td>{FormatAsDollars(level.Price)}</td>
+					<td>{FormatAsPercentage(percentSold, 2)}</td>
+					<td>{RoundToPlaces(amountSold)}</td>
+					<td>{RoundToPlaces(cumulativeSold)}</td>
+					<td>{RoundToPlaces(remainingAsset)}</td>
+					<td>{FormatAsDollars(revenue)}</td>
+					<td>{FormatAsDollars(cumulativeRevenue)}</td>
 					{showButtons &&
 					<td className="action-column">
 						<div className="button-container">
@@ -57,7 +72,8 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 				<thead>
 					<tr>
 						<th>Price Level</th>
-						<th>Amount Sold</th>
+						<th>Percent Sold</th>
+						<th>Units Sold</th>
 						<th>Cumulative Sold</th>
 						<th>Remaining Asset</th>
 						<th>Revenue</th>

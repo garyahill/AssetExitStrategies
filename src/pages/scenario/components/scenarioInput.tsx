@@ -1,16 +1,24 @@
-import React from "react";
-import { Asset } from "../.././../models";
+import React, { useState } from "react";
+import { Asset, MethodType } from "../.././../models";
+import InfoTooltip from "../../../components/controls/infoTooltip";
+import CustomModal from "../../../components/controls/customModal";
 import "./scenarioInput.less";
+import NumberInput from "../../../components/controls/numberInput";
 
 interface ScenarioInputProps {
 	asset: Asset;
-	isReadOnly?: boolean;
 	onChange: (asset: Asset) => void;
 }
 
 const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
-	const { asset, isReadOnly, onChange } = props;
+	const { asset, onChange } = props;
+	const [modalIsOpen, setIsOpen] = useState(false);
 
+	const infoText = `Enter the asset name, quantity, and disposition method.
+		Disposition Percentage is the percentage of remaining assets to be sold
+		at each price level created.`;
+	const modelText = `Changing your distribution type to Percentage will invalidate 
+		previous set Price Levels. Would you like to continue?`;
 
 	function handleChange(property: keyof typeof asset) {
 		return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +27,34 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 		};
 	}
 
+	function handleMethodTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const value = e.target.value;
+		if (asset.PriceLevels.length) {
+			setIsOpen(true);
+		} else {
+			onChange({ ...asset, Method: value as MethodType });
+		}
+	}
+
+	const onModalConfirmation = (retVal: boolean) => {
+		setIsOpen(false);
+		if (retVal) {
+			const flipVal = asset.Method === "Units" ? "Percentage" : "Units";
+			onChange({ ...asset, Method: flipVal, PriceLevels: [] });
+		}
+	};
+
 	function getInputElements() {
 		return (
 			<div className="asset-info-container">
+				<div className="heading-container">
+					<div className="title-container">
+						<h4>Asset Details</h4>
+						<div className="info-container">
+							<InfoTooltip tooltipText={infoText} tooltipWidth={"200px"} />
+						</div>
+					</div>
+				</div>
 				<div className="form-group">
 					<label htmlFor="AssetName">Asset Name</label>
 					<input
@@ -31,16 +64,16 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 						value={asset.AssetName}
 						onChange={handleChange("AssetName")}
 						required
+						autoComplete="off"
 					/>
 				</div>
 
 				<div className="form-group">
 					<label htmlFor="Quantity">Quantity</label>
-					<input
-						type="number"
+					<NumberInput
 						id="Quantity"
 						name="Quantity"
-						value={asset.Quantity}
+						value={asset.Quantity ? asset.Quantity : ""}
 						onChange={handleChange("Quantity")}
 						required
 					/>
@@ -52,38 +85,36 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 						<label className="radio-label">
 							<input
 								type="radio"
-								value="Percentage"
-								checked={asset.Method === "Percentage"}
-								onChange={handleChange("Method")}
-							/>{"Percentage"}
+								value="Units"
+								checked={asset.Method === "Units"}
+								onChange={handleMethodTypeChange}
+							/>{"Units"}
 						</label>
 						<label className="radio-label">
 							<input
 								type="radio"
-								value="Units"
-								checked={asset.Method === "Units"}
-								onChange={handleChange("Method")}
-							/>{"Units"}
+								value="Percentage"
+								checked={asset.Method === "Percentage"}
+								onChange={handleMethodTypeChange}
+							/>{"Percentage"}
 						</label>
 					</div>
 				</div>
+
+				<CustomModal
+					isOpen={modalIsOpen}
+					onCancel={() => onModalConfirmation(false)}
+					onAccept={() => onModalConfirmation(true)}
+					primaryButtonText={"Continue"}
+					height="230px"
+					headerText={"Confirm Change"} >
+					<p>{ modelText }</p>
+				</CustomModal>
 			</div >
 		);
 	}
 
-	function getDisplayElements() {
-		return (
-			<div className="display-info-container">
-				<label>{`Asset Name: ${asset.AssetName}`}</label>
-				<label>{`Disposition: ${asset.Method}`}</label>
-				<label>{`Quantity: ${asset.Quantity}`}</label>
-			</div>
-		);
-	}
-
-	return isReadOnly ? getDisplayElements() : getInputElements();
+	return getInputElements();
 };
-
-
 
 export default ScenarioInput;

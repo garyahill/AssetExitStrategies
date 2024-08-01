@@ -1,12 +1,31 @@
 @import "../../../theme/palette.less";
+@import "../../../theme/mixins.less";
 
 .price-level-container {
-    
+
+    .scenario-box-properties(); 
+
     .form-group {
-        margin-bottom: 20px;          
+
+        margin-left: 15px;
+
+        input[type="number"] {
+            width: 195px;
+        }
+        
+        .slider {
+            margin-bottom: -15px;
+            position: relative; 
+            left: 95px;
+            
+            input[type="range"] {
+                width: 195px;
+            }
+        }              
     }
 
-    button {
-        width: 180px;
+    .form-group:last-of-type {
+        margin-bottom: 20px;
     }
+
  }

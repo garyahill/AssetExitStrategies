@@ -1,23 +1,36 @@
-.asset-info-container {
-   margin-bottom: 50px;
+@import "../../../theme/palette.less";
+@import "../../../theme/mixins.less";
 
-   .form-group {
-       margin-bottom: 20px;
-   
+.asset-info-container {
+    .scenario-box-properties(); 
+
+    .form-group {
+
+        margin-left: 15px;
+
        .radio-label {
            display: inline;
            margin-right: 12px;
+
+           input {
+               margin-right: 5px;
+           }
         }
        
         .option-group {
            position: relative;
            display: inline;
-           left: -5px;
         }       
-   }
+    }
+
+    .form-group:last-of-type {
+        margin-bottom: 20px;
+    }
 }
 
 .display-info-container {
+    .scenario-box-properties();
+
     label {
         margin-bottom: 7px;
         display: block;

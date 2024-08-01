@@ -1,5 +1,9 @@
 import React, { useEffect, useState }  from "react";
-import { Asset, PriceLevel } from "../.././../models";
+import { Asset, PriceLevel, TransientPriceLevel } from "../.././../models";
+import InfoTooltip from "../../../components/controls/infoTooltip";
+import { calculateRemainingAsset, filterPriceLevelsWithoutRevenue, getNewPriceLevel } from "../../../utilities/scenario";
+import NumberInput from "../../../components/controls/numberInput";
+import useDeepCompareEffect from "../../../hooks/useDeepCompareEffect";
 import "./priceLevelInput.less";
 
 interface PriceLevelInputProps {
@@ -9,7 +13,9 @@ interface PriceLevelInputProps {
 }
 
 const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBeingEdited, onChange }) => {
-	const [priceLevel, setPriceLevel] = useState<PriceLevel>(priceLevelBeingEdited || getNewPriceLevel(asset));
+	const [priceLevel, setPriceLevel] = useState<PriceLevel | TransientPriceLevel>(priceLevelBeingEdited || getNewPriceLevel(asset));
+	const [remainingAsset, setRemainingAsset] = useState<number>(calculateRemainingAsset(asset));
+
 	useEffect(() => { setPriceLevel(getNewPriceLevel(asset)) }, [asset]);
 	useEffect(() => {
 		if (priceLevelBeingEdited) {
@@ -17,16 +23,25 @@ const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBein
 		}}, [priceLevelBeingEdited]
 	);
 
-	const isEditing = !!priceLevelBeingEdited;
+	useDeepCompareEffect(() => {
+		const additionalRemaining = priceLevelBeingEdited ? priceLevelBeingEdited.Quantity : 0;
+		const remaining = calculateRemainingAsset(asset) + additionalRemaining;
+		setRemainingAsset(remaining)
+	}, [asset.PriceLevels, priceLevelBeingEdited, asset.Quantity]);
 
 	function addPriceLevel() {
-		if (validatePriceLevel()) {
-			onChange({...asset, PriceLevels: [...asset.PriceLevels, priceLevel] });
-		}
+		onChange({...asset, PriceLevels: [...asset.PriceLevels, priceLevel as PriceLevel] });
 	}
 
 	function editPriceLevel() {
-		const updatedLevels = asset.PriceLevels.map(level => { return level.Id === priceLevel.Id ? priceLevel : level });
+		const localLevel = priceLevel as PriceLevel;
+		let updatedLevels = asset.PriceLevels.map(level => { return level.Id === localLevel.Id ? localLevel : level });
+		// Since any price level can be edited and potentially allocate all the remaining asset
+		// we need to filter out any subsequent price levels that not longer have revenue.
+		// This is only necessary when the asset is allocated by percentage.
+		if (asset.Method === "Percentage") {
+			updatedLevels = filterPriceLevelsWithoutRevenue(asset.Quantity, updatedLevels);
+		}
 		onChange({...asset, PriceLevels: updatedLevels });
 	}
 
@@ -35,45 +50,65 @@ const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBein
 			setPriceLevel({ ...priceLevel, [property]: Number(e.target.value) });
 	}
 
-	function validatePriceLevel() {
-		const total = asset.PriceLevels.reduce((acc, level) => acc + Number(level.Quantity), Number(priceLevel.Quantity));
-		return total <= asset.Quantity;
-	}
-
 	return (
 		<div className="price-level-container">
+			<div className="heading-container">
+				<div className="title-container">
+					<h4>Price Levels</h4>
+					<div className="info-container">
+						<InfoTooltip tooltipText={"infoText"} />
+					</div>
+				</div>
+				<button
+					className={"unicode-button"}
+					title={`${priceLevelBeingEdited ? "Update" : "Add"} Price Level`}
+					disabled={!priceLevelBeingEdited && (!remainingAsset || !priceLevel.Price || !priceLevel.Quantity)}
+					onClick={priceLevelBeingEdited ? editPriceLevel : addPriceLevel}>{priceLevelBeingEdited ? "💾" : "➕"}
+				</button>
+			</div>
+
 			<div className="form-group">
 				<label htmlFor="Price">Selling Price</label>
-				<input
-					type="number"
+				<NumberInput
 					id="Price"
 					name="Price"
 					value={priceLevel.Price}
 					onChange={handlePriceLevelChange("Price")}
+					enforceMinMax
 					required
+					disabled={remainingAsset === 0 && !priceLevelBeingEdited}
 				/>
 			</div>
 			<div className="form-group">
-				<label htmlFor="Quantity">Quantity</label>
-				<input
-					type="number"
+				<label htmlFor="Quantity">{ asset.Method }</label>
+				<NumberInput
 					id="Quantity"
 					name="Quantity"
 					value={priceLevel.Quantity}
-					onChange={handlePriceLevelChange("Quantity")}
+					min={0}
 					required
+					disabled={remainingAsset === 0 && !priceLevelBeingEdited}
+					enforceMinMax
+					onChange={handlePriceLevelChange("Quantity")}
+					{...(asset.Method === "Percentage" ? { max: 1 } : { max: remainingAsset })}
 				/>
+				{asset.Method === "Percentage" &&
+					<div className="slider">
+						<input
+							id="slider"
+							type="range"
+							min="0"
+							max="1"
+							step="0.01"
+							value={priceLevel.Quantity === "" ? 0 : priceLevel.Quantity}
+							onChange={handlePriceLevelChange("Quantity")}
+						/>
+					</div>
+				}
 			</div>
-			<button className={"button-primary"} onClick={isEditing ? editPriceLevel : addPriceLevel}>{`${isEditing ? "Update" : "Add"} Price Level`}</button>
 		</div >
 	);
 
 };
-
-const getNewPriceLevel = (asset: Asset) => {
-	const levels = asset.PriceLevels;
-	const maxVal = levels.length > 0 ? (Math.max(...levels.map(obj => obj.Id)) + 1) : 1;
-	return { Id: maxVal, Price: 0, Quantity: 0 };
-}
 
 export default PriceLevelInput;

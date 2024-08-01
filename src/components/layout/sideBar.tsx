@@ -17,20 +17,27 @@ const SideBar = () => {
 	const noAssetText = `Select one of your previously created scenarios or click 
 		"Add Asset" to build a new exit strategy.`;
 
+	const updatedAppState = {
+		...appState,
+		editingScenario: true,
+		assetBeingEdited: undefined,
+		assetBeingDisplayed: undefined,
+	};
+
 	const addScenario = () => {
-		setAppState({ ...appState, editingScenario: true, assetBeingEdited: undefined, assetBeingDisplayed: undefined });
+		setAppState(updatedAppState);
 		navigateToScenario();
 	};
 
 	const getAssetLink = (asset: Asset) => {
 		const onClick = () => {
-			setAppState({ ...appState, editingScenario: true, assetBeingEdited: asset, assetBeingDisplayed: undefined });
+			setAppState({...updatedAppState, assetBeingEdited: asset });
 			navigateToScenario();
 		}
 
 		return (
-			<li key={`Key_${asset.Id}`}>
-				<Link onClick={onClick} to={"/scenario"}>{asset.AssetName}</Link>
+			<li key={`Key_${asset.Id}`} onClick={onClick}>
+				<Link to={"/scenario"}>{asset.AssetName}</Link>
 			</li>
 		);
 	};
@@ -45,7 +52,7 @@ const SideBar = () => {
 				</ul>
 			}
 			{assets.length === 0 &&
-				<p>noAssetText</p>
+				<p>{ noAssetText }</p>
 			}
 
 			<button

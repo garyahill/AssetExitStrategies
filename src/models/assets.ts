@@ -6,6 +6,7 @@ export interface Asset {
 	Method: MethodType;
 	Quantity: number;
 	PriceLevels: PriceLevel[];
+	SortOrder: number;
 }
 
 export interface PriceLevel {

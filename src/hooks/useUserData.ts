@@ -34,31 +34,36 @@ const useUserData = () => {
 		setAssets(defaultAssets);
 		setAppState(defaultAppState);
 		logout();
-	}
+	};
 
 	const addOrUpdateScenario = (asset: Asset) => {
 		let updatedAssets = [...assets];
 		const index = assets.findIndex(currentAsset => currentAsset.Id === asset.Id);
 		if (index === -1) {
-			updatedAssets = [...updatedAssets,  asset];
+			updatedAssets = [...updatedAssets, asset];
 		} else {
 			updatedAssets[index] = asset;
 		}
 		setAssets(updatedAssets);
 		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
 		setAppState({ ...appState, editingScenario: false });
-	}
+	};
 
 	const removeScenario = (assetId: number) => {
 		const updatedAssets = assets.filter(asset => asset.Id !== assetId);
 		setAssets(updatedAssets);
 		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
-	}
+	};
 
 	const getStorageKey = (profile: Profile): string => {
 		const { UserName, ProfileKey } = profile;
 		return `${UserName}_${ProfileKey}`;
-	}
+	};
+
+	const updateAssets = (updatedAssets: Asset[]) => {
+		setAssets(updatedAssets);
+		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
+	};
 
 	return {
 		profile,
@@ -72,6 +77,7 @@ const useUserData = () => {
 		removeScenario,
 		loadExistingProfile,
 		unloadProfile,
+		updateAssets,
 	};
 };
 

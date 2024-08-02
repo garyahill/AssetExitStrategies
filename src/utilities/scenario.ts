@@ -1,4 +1,3 @@
-import React from "react";
 import { Asset, PriceLevel, TransientPriceLevel, ScenarioDisplayData } from "../models";
 
 const getDefaultAsset = (assets: Asset[]): Asset => {
@@ -9,6 +8,7 @@ const getDefaultAsset = (assets: Asset[]): Asset => {
 		Method: "Units",
 		Quantity: 0,
 		PriceLevels: [],
+		SortOrder: maxVal,
 	};
 }
 

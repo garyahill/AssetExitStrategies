@@ -15,16 +15,18 @@ function Layout() {
 	};
 
 	return (
-		<div className="app-container">
-			<Header />
-			<div className="body">
-				{showSideBar() && <SideBar /> }
-				<main className="page-content">
-					<Outlet />
-				</main>
+		<>
+			<div className="app-container">
+				<Header />
+				<div className="body">
+					{showSideBar() && <SideBar /> }
+					<main className="page-content">
+						<Outlet />
+					</main>
+				</div>
 			</div>
 			<Footer />
-		</div>
+		</>
 	);
 }
 

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Asset, MethodType } from "../.././../models";
-import InfoTooltip from "../../../components/controls/infoTooltip";
 import CustomModal from "../../../components/controls/customModal";
-import "./scenarioInput.less";
 import NumberInput from "../../../components/controls/numberInput";
+import "./scenarioInput.less";
 
 interface ScenarioInputProps {
 	asset: Asset;
@@ -14,9 +13,6 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 	const { asset, onChange } = props;
 	const [modalIsOpen, setIsOpen] = useState(false);
 
-	const infoText = `Enter the asset name, quantity, and disposition method.
-		Disposition Percentage is the percentage of remaining assets to be sold
-		at each price level created.`;
 	const modelText = `Changing your distribution type to Percentage will invalidate 
 		previous set Price Levels. Would you like to continue?`;
 
@@ -50,9 +46,6 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 				<div className="heading-container">
 					<div className="title-container">
 						<h4>Asset Details</h4>
-						<div className="info-container">
-							<InfoTooltip tooltipText={infoText} tooltipWidth={"200px"} />
-						</div>
 					</div>
 				</div>
 				<div className="form-group">

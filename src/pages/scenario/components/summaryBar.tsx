@@ -11,9 +11,9 @@ interface SummaryBarProps {
 const SummaryBar: React.FC<SummaryBarProps> = ({ asset }) => {
 	return (
 		<div className="summary-container">
-			<div className="summary-left">{`Total Asset Quantity: ${ RoundToPlaces(asset.Quantity) }`}</div>
-			<div className="summary-middle">{`Remaining Asset Quantity: ${ RoundToPlaces(calculateRemainingAsset(asset)) }`}</div>
-			<div className="summary-right">{`Projected Cumulative Revenue: ${ FormatAsDollars(projectedRevenue(asset)) }`}</div>
+			<div className="summary-left">{`Asset Quantity: ${ RoundToPlaces(asset.Quantity) }`}</div>
+			<div className="summary-middle">{`Remaining Quantity: ${ RoundToPlaces(calculateRemainingAsset(asset)) }`}</div>
+			<div className="summary-right">{`Projected Revenue: ${ FormatAsDollars(projectedRevenue(asset)) }`}</div>
 		</div>
 	);
 };

@@ -29,6 +29,10 @@ const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBein
 		setRemainingAsset(remaining)
 	}, [asset.PriceLevels, priceLevelBeingEdited, asset.Quantity]);
 
+	const percentageInfoText = `Percentage calculates the amount of assets to sell at each price 
+		by multiplying the chosen percentage by remaining assets.`;
+	const unitsInfoText = "Units is the exact amount of remaining assets to sell at each price";
+
 	function addPriceLevel() {
 		onChange({...asset, PriceLevels: [...asset.PriceLevels, priceLevel as PriceLevel] });
 	}
@@ -56,7 +60,7 @@ const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBein
 				<div className="title-container">
 					<h4>Price Levels</h4>
 					<div className="info-container">
-						<InfoTooltip tooltipText={"infoText"} />
+						<InfoTooltip tooltipText={asset.Method === "Units" ? unitsInfoText : percentageInfoText} />
 					</div>
 				</div>
 				<button

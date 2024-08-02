@@ -34,9 +34,11 @@ const Scenario: React.FC = () => {
 
 	const [priceLevelBeingEdited, setPriceLevelBeingEdited] = useState<PriceLevel | undefined>(undefined);
 	const [scenarioErrors, setScenarioErrors] = useState<ScenarioError[]>([]);
+	const [hasTableError, setHasTableError] = useState<boolean>(false);
 
 	useEffect(() => {
 		setScenarioErrors([]);
+		asset.PriceLevels.length === 0 && setHasTableError(false);
 	}, [asset.AssetName, asset.Quantity, asset.PriceLevels.length]);
 
 	const cancel = () => {
@@ -86,7 +88,7 @@ const Scenario: React.FC = () => {
 
 	const deletePriceLevel = (priceLevelId: number) => {
 		const updatedLevels = asset.PriceLevels.filter(level => level.Id !== priceLevelId);
-		setAsset({...asset, PriceLevels: updatedLevels });
+		setAsset({ ...asset, PriceLevels: updatedLevels });
 	}
 
 	const editPriceLevel = (priceLevelId: number) => {
@@ -104,8 +106,8 @@ const Scenario: React.FC = () => {
 		if (!asset.AssetName) { errors.push({ Field: "AssetName", Message: "Asset name is required." })}
 		if (!asset.Quantity) { errors.push({ Field: "Quantity", Message: "An Asset Quantity is required." })}
 		if (!asset.PriceLevels || asset.PriceLevels.length === 0) {
-			errors.push({ Field: "PriceLevels", Message: "At least one Price Level is required." })
-		}
+			errors.push({ Field: "PriceLevels", Message: "At least one Price Level is required." })}
+		if (hasTableError) {errors.push({ Field: "Table", Message: "One or more Price Levels have an error."  });}
 		setScenarioErrors(errors);
 		return errors.length === 0;
 	}
@@ -144,9 +146,6 @@ const Scenario: React.FC = () => {
 							onChange={updatePriceLevel}
 						/>
 
-						{scenarioErrors.length > 0 &&
-							<ErrorPanel errors={scenarioErrors} />
-                    	}
 					</div>
 
 					<div className="middle-container">
@@ -158,11 +157,18 @@ const Scenario: React.FC = () => {
 
 							<ScenarioTable
 								asset={asset}
-								onError={(errors: ScenarioError[]) => setScenarioErrors(errors)}
+								onError={(value) => setHasTableError(value)}
 								onEdit={editPriceLevel}
 								onDelete={deletePriceLevel}
 							/>
 						</>
+						}
+						{scenarioErrors.length > 0 &&
+							<ErrorPanel
+								title="Please fix the following errors:"
+								customStyle={asset.PriceLevels.length === 0 ? { top: "67px" } : undefined }
+								errors={scenarioErrors}
+							/>
 						}
 					</div>
 

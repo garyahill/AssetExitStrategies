@@ -1,65 +1,54 @@
-import React from "react";
-import { Asset, PriceLevel, ScenarioError } from "../../../models";
-import { FormatAsDollars, FormatAsPercentage, RoundToPlaces} from "../../../utilities/numbers";
+import React, { useEffect } from "react";
+import { Asset, PriceLevel } from "../../../models";
+import { FormatAsDollars, FormatAsPercentage, RoundToPlaces } from "../../../utilities/numbers";
+import { getTableData, invalidTableData } from "../../../utilities/scenario";
 import "./scenarioTable.less";
+
 
 interface TableContainerProps {
 	asset: Asset;
 	onEdit?: (priceLevelId: number) => void;
 	onDelete?: (priceLevelId: number) => void;
-	onError?: (errors: ScenarioError[]) => void; // TODO: Implement error handling
+	onError?: (error: boolean) => void;
 }
 
-const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete}) => {
-	const { Method, PriceLevels } = asset;
+const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete, onError}) => {
+	useEffect(() => {
+		if (onError) {
+			if (invalidTableData(asset)) {
+				onError(true);
+			} else {
+				onError(false);
+			}
+		}
+	}, [asset.Quantity, asset.PriceLevels]);
+
 	const showButtons = onEdit && onDelete;
 
-	const getRows = (levels: PriceLevel[]) => {
+	const getRows = () => {
+		const percentSoldDisplay = (hasError: boolean, percentSold: number) =>
+			hasError ? <span className="error-text">error</span> :
+				FormatAsPercentage(percentSold, 2);
 
-		const sortedLevels = levels.sort((a, b) => a.Price - b.Price);
-
-		let amountSold = 0;
-		let revenue = 0;
-		let cumulativeSold = 0;
-		let remainingAsset = asset.Quantity;
-		let cumulativeRevenue = 0;
-		let percentSold = 0;
-
-
-		return sortedLevels.map((level, index) => {
-
-			if (Method === "Percentage") {
-				percentSold = level.Quantity;
-				amountSold = remainingAsset * percentSold;
-				revenue = level.Price * amountSold;
-				cumulativeSold += amountSold;
-				remainingAsset -= amountSold;
-				cumulativeRevenue += revenue;
-			} else {
-				amountSold = level.Quantity;
-				revenue = level.Price * level.Quantity;
-				cumulativeSold += level.Quantity;
-				percentSold = amountSold / remainingAsset;
-				remainingAsset -= level.Quantity;
-				cumulativeRevenue += revenue;
-			}
-
+		return getTableData(asset).map((rowData, index) => {
+			const { Id, Price, PercentSold, AmountSold, CumulativeSold,
+				RemainingAsset, Revenue, CumulativeRevenue, HasError } = rowData;
 			return (
-				<tr key={`row_${index}`} className={`${remainingAsset < 0 ? "error-row" : undefined}`}>
-					<td>{FormatAsDollars(level.Price)}</td>
-					<td>{FormatAsPercentage(percentSold, 2)}</td>
-					<td>{RoundToPlaces(amountSold)}</td>
-					<td>{RoundToPlaces(cumulativeSold)}</td>
-					<td>{RoundToPlaces(remainingAsset)}</td>
-					<td>{FormatAsDollars(revenue)}</td>
-					<td>{FormatAsDollars(cumulativeRevenue)}</td>
+				<tr key={`row_${index}`} className={`${RemainingAsset < 0 ? "error-row" : undefined}`}>
+					<td>{FormatAsDollars(Price)}</td>
+					<td>{percentSoldDisplay(HasError, PercentSold)}</td>
+					<td>{RoundToPlaces(AmountSold)}</td>
+					<td>{RoundToPlaces(CumulativeSold)}</td>
+					<td>{RoundToPlaces(RemainingAsset)}</td>
+					<td>{FormatAsDollars(Revenue)}</td>
+					<td>{FormatAsDollars(CumulativeRevenue)}</td>
 					{showButtons &&
-					<td className="action-column">
-						<div className="button-container">
-							<button className={"unicode-button"} title="Edit" onClick={() => onEdit(level.Id)}>📝</button>
-							<button className={"unicode-button"} title="Remove" onClick={() => onDelete(level.Id)}>🗑️</button>
-						</div>
-					</td>
+						<td className="action-column">
+							<div className="button-container">
+								<button className={"unicode-button"} title="Edit" onClick={() => onEdit(Id)}>📝</button>
+								<button className={"unicode-button"} title="Remove" onClick={() => onDelete(Id)}>🗑️</button>
+							</div>
+						</td>
 					}
 				</tr>
 			);
@@ -84,13 +73,11 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete})
 					</tr>
 				</thead>
 				<tbody>
-					{ getRows(PriceLevels) }
+					{ getRows() }
 				</tbody>
 			</table>
 		</div>
 	);
 };
-
-
 
 export default ScenarioTable;

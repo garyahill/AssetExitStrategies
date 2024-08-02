@@ -1,10 +1,25 @@
 @import "../../theme/palette.less";
 
 .error-container {
-    li {
-        list-style-type: none;
-        color: @secondary-dark;
-        font-size: 14px;
-        margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    top: 25px;
+    width: 100%;
+
+    h4 {
+        margin: 10px 0 0 0;
+    }
+
+    ul {
+        padding: 0;
+
+        li {
+            margin-left: 16px;
+            list-style-type: square;
+            color: @secondary-dark;
+            margin-bottom: 5px;
+        }
     }
 }

@@ -8,7 +8,7 @@ import ScenarioTable from "../common/components/scenarioTable";
 import { Asset, PriceLevel, ScenarioError } from "../../models";
 import CustomModal from "../../components/controls/customModal";
 import isEqual from "lodash/isEqual";
-import { getDefaultAsset } from "../../utilities/scenario";
+import { getDefaultAsset, getTableData } from "../../utilities/scenario";
 import SummaryBar from "./components/summaryBar";
 import ErrorPanel from "../../components/controls/errorPanel";
 import "./scenario.less";
@@ -157,6 +157,7 @@ const Scenario: React.FC = () => {
 
 							<ScenarioTable
 								asset={asset}
+								tableData={getTableData(asset)}
 								onError={(value) => setHasTableError(value)}
 								onEdit={editPriceLevel}
 								onDelete={deletePriceLevel}

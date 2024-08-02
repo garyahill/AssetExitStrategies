@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import { Asset, PriceLevel } from "../../../models";
+import { Asset, ScenarioDisplayData } from "../../../models";
 import { FormatAsDollars, FormatAsPercentage, RoundToPlaces } from "../../../utilities/numbers";
-import { getTableData, invalidTableData } from "../../../utilities/scenario";
+import { invalidTableData } from "../../../utilities/scenario";
 import "./scenarioTable.less";
 
 
 interface TableContainerProps {
 	asset: Asset;
+	tableData: ScenarioDisplayData[];
 	onEdit?: (priceLevelId: number) => void;
 	onDelete?: (priceLevelId: number) => void;
 	onError?: (error: boolean) => void;
 }
 
-const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete, onError}) => {
+const ScenarioTable: React.FC<TableContainerProps> = ({asset, tableData, onEdit, onDelete, onError}) => {
 	useEffect(() => {
 		if (onError) {
 			if (invalidTableData(asset)) {
@@ -30,7 +31,7 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, onEdit, onDelete, 
 			hasError ? <span className="error-text">error</span> :
 				FormatAsPercentage(percentSold, 2);
 
-		return getTableData(asset).map((rowData, index) => {
+		return tableData.map((rowData, index) => {
 			const { Id, Price, PercentSold, AmountSold, CumulativeSold,
 				RemainingAsset, Revenue, CumulativeRevenue, HasError } = rowData;
 			return (

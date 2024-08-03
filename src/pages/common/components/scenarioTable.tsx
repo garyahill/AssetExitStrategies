@@ -3,6 +3,7 @@ import { Asset, ScenarioDisplayData } from "../../../models";
 import { FormatAsDollars, FormatAsPercentage, RoundToPlaces } from "../../../utilities/numbers";
 import { invalidTableData } from "../../../utilities/scenario";
 import "./scenarioTable.less";
+import InfoTooltip from "../../../components/controls/infoTooltip";
 
 
 interface TableContainerProps {
@@ -37,7 +38,10 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, tableData, onEdit,
 			return (
 				<tr key={`row_${index}`} className={`${RemainingAsset < 0 ? "error-row" : undefined}`}>
 					<td>{FormatAsDollars(Price)}</td>
-					<td>{percentSoldDisplay(HasError, PercentSold)}</td>
+					<td>
+						{percentSoldDisplay(HasError, PercentSold)}
+
+					</td>
 					<td>{RoundToPlaces(AmountSold)}</td>
 					<td>{RoundToPlaces(CumulativeSold)}</td>
 					<td>{RoundToPlaces(RemainingAsset)}</td>
@@ -62,7 +66,10 @@ const ScenarioTable: React.FC<TableContainerProps> = ({asset, tableData, onEdit,
 				<thead>
 					<tr>
 						<th>Price Level</th>
-						<th>Percent Sold</th>
+						<th>
+							<span>Percent Sold</span>
+							<InfoTooltip tooltipText="Percent of the remaining asset sold at this price level." />
+						</th>
 						<th>Units Sold</th>
 						<th>Cumulative Sold</th>
 						<th>Remaining Asset</th>

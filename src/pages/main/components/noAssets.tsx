@@ -1,12 +1,18 @@
 import * as React from "react";
+import bull from "../../../images/Bull.png";
+import "./noAssets.less";
 
-// TODO: look at how this component displays to see if I need more to be less boring looking
 const NoAssets: React.FC = () => {
 	return (
-		<p>
-			You currently have no scenarios to display.
-			Click <i>Add Scenario</i> to create a new exit strategy.
-		</p>
+		<div className="no-assets-container">
+			<p>
+				You currently have no scenarios to display.
+				Click <b>Add Asset</b> to create a new Asset Exit Strategy.
+			</p>
+			<div className="image-container">
+				<img src={bull} alt="Bull" />
+			</div>
+		</div>
 	);
 };
 

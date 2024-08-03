@@ -7,6 +7,7 @@ import { getTableData } from "../../utilities/scenario";
 import BarChart from "./components/barChart";
 import { RoundToPlaces } from "../../utilities/numbers";
 import "./display.less";
+import SummaryBar from "../scenario/components/summaryBar";
 
 const Display: React.FC = () => {
 	const { appState, setAppState } = useAppState();
@@ -31,10 +32,10 @@ const Display: React.FC = () => {
 			</div>
 			<div className="content-container">
 				<div className="table-container">
-					<ScenarioTable asset={asset} tableData={assetDisplayData}/>
+					<SummaryBar asset={asset}/>
+					<ScenarioTable asset={asset} tableData={assetDisplayData} />
 				</div>
 				<div className="chart-container">
-					{/*  TODO: Add other charts */}
 					<div>
 						<BarChart
 							chartLabel={"% Asset Sold at Each Price Level"}

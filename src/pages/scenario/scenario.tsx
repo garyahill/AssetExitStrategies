@@ -5,22 +5,13 @@ import useAppState from "../../hooks/useAppState";
 import ScenarioInput from "./components/scenarioInput";
 import PriceLevelInput from "./components/priceLevelnput";
 import ScenarioTable from "../common/components/scenarioTable";
-import { Asset, PriceLevel, ScenarioError } from "../../models";
+import { Asset, ModalProperties, PriceLevel, ScenarioError } from "../../models";
 import CustomModal from "../../components/controls/customModal";
 import isEqual from "lodash/isEqual";
 import { getDefaultAsset, getTableData } from "../../utilities/scenario";
 import SummaryBar from "./components/summaryBar";
 import ErrorPanel from "../../components/controls/errorPanel";
 import "./scenario.less";
-
-interface ModalProperties {
-	isOpen: boolean;
-	headerText?: string;
-	bodyText?: string;
-	primaryButtonText?: string;
-	onCancel?: () => void;
-	onAccept?: () => void;
-}
 
 const Scenario: React.FC = () => {
 	const { assets, addOrUpdateScenario, removeScenario } = useUserData();

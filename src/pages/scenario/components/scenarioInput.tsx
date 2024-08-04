@@ -58,6 +58,7 @@ const ScenarioInput: React.FC<ScenarioInputProps> = (props) => {
 						onChange={handleChange("AssetName")}
 						required
 						autoComplete="off"
+						maxLength={16}
 					/>
 				</div>
 

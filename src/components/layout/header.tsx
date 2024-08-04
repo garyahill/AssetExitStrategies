@@ -1,10 +1,13 @@
 import * as React from "react";
 import useAuthentication from "../../hooks/useAuthentication";
 import useUserData from "../../hooks/useUserData";
-
 import "./header.less";
 
-const Header = () => {
+interface HeaderProps {
+	onFaqClick: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onFaqClick }) => {
 	const { isAuthenticated } = useAuthentication();
 	const { unloadProfile } = useUserData();
 
@@ -15,9 +18,10 @@ const Header = () => {
 					<h1>Asset Exit Strategies</h1>
 				</div>
 				{isAuthenticated &&
-				<div className={"header"}>
-					<button className={"button-primary"} onClick={unloadProfile}>Log off</button>
-				</div>
+					<div className={"header"}>
+						<button className={"button-inverse"} onClick={onFaqClick}>FAQs</button>
+						<button className={"button-primary"} onClick={unloadProfile}>Log off</button>
+					</div>
 				}
 			</div>
 		</div>

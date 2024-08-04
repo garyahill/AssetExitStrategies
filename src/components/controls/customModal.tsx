@@ -12,6 +12,7 @@ interface CustomModalProps {
 	height?: string;
 	top?: string;
 	primaryButtonText?: string;
+	onCloseOnOverlayClick?: () => void;
 	onCancel?: () => void;
 	onAccept?: () => void;
 }
@@ -43,6 +44,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ width = "50%", height = "50%"
 	return (
 		<ReactModal
 			isOpen={props.isOpen}
+			onRequestClose={props.onCloseOnOverlayClick}
 			style={customStyles}
 			contentLabel="Custom Modal"
 		>

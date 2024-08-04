@@ -12,14 +12,33 @@
         .header {
             padding: 20px;
 
+            .button-inverse {
+                background: none;
+                color: @primary-color;
+                cursor: pointer;
+                position: relative;
+                left: -12px;
+                top: 1px;
+                font-weight: 600;
+                border: solid 1px ;
+                height: 38.39px;
+
+             }
+              
+            .button-inverse:hover {
+                text-decoration: none;
+                background-color: @content-bg;
+            }
+
             button {
+                box-sizing: border-box;
                 margin: 0;
                 width: 115px;
             }
         }
         
         .header h1 {
-            margin: 0;
+            margin: 0;     
         }
     }
 

@@ -4,8 +4,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// TODO: DO I NEED THESE Plugins?
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// TODO: DO I NEED THESE Plugins?
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let isProduction = process.env.NODE_ENV === "production";
@@ -59,11 +59,11 @@ let config = {
             filename: "bundle.css"
         }),
         // TODO: Add CopyWebpackPlugin to copy images to the build directory
-        // new CopyWebpackPlugin({
-        //     patterns: [
-        //       { from: './src/images/[filename].png', to: '[filename].png' }, // Copy favicon to the build directory
-        //     ],
-        //   }),
+        new CopyWebpackPlugin({
+            patterns: [
+              { from: './src/images/favicon.ico', to: 'favicon.ico' }, // Copy favicon to the build directory
+            ],
+          }),
         // new BundleAnalyzerPlugin(),
 	],
     module:{

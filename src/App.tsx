@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
 	return (
 		<AuthProvider>
-			<Router>
+			<Router basename="/AssetExitStrategies">
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />

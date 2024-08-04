@@ -1,6 +1,6 @@
 import React from "react";
 import CustomModal from "../controls/customModal";
-import { ModalProperties } from "../../models/modal";
+import { ModalProperties } from "../../models";
 import FaqList from "../../pages/common/components/faqList";
 
 interface FAQModalProps {

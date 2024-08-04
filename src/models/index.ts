@@ -4,6 +4,8 @@ import type { UserData } from "./userData";
 import type { AppState } from "./appState";
 import type { ScenarioDisplayData } from "./scenarioDisplayData";
 import { ScenarioError } from "./error";
+import { ModalProperties } from "./modal";
+import { Question } from "./question";
 
 export type {
 	Asset,
@@ -15,4 +17,6 @@ export type {
 	AppState,
 	ScenarioDisplayData,
 	ScenarioError,
+	ModalProperties,
+	Question,
 };

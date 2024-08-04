@@ -3,7 +3,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import Header from "./header";
 import SideBar from "./sideBar";
 import Footer from "./footer";
-import { ModalProperties } from "../../models/modal";
+import { ModalProperties } from "../../models";
 import FAQModal from "./faqModal";
 import "../../theme/global.less";
 import "./layout.less";

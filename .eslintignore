@@ -1,7 +1,0 @@
-**/node_modules
-node_modules
-.eslintrc.js
-jest.config.js
-webpack.config.js
-test-setup.js
-styleguide.config.js

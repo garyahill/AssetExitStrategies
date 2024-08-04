@@ -14,7 +14,7 @@ interface ProfileInputProps {
 const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 	const { isCreate, profile, buttonText, onChange, onButtonClick } = props;
 	const loginButtonDisabled = !profile.UserName || !profile.ProfileKey;
-	const createButtonDisabled = !profile.UserName || (profile.ProfileKey.length < 8) || !profile.Name;
+	const createButtonDisabled = !profile.UserName || (profile.ProfileKey.length < 4) || !profile.Name;
 
 	const item = isCreate ? { Text: "Home", Location: "/", Watermark: "Minimum 4 characters", Type: "text" } :
 		{ Text: "New Account", Location: "/newaccount", Watermark: undefined, Type: "password" };

@@ -18,9 +18,11 @@ const App: React.FC = () => {
 	// 	console.log("NODE_ENV:", process.env.NODE_ENV);
 	// }, []);
 
+	const routerBaseName = process.env.NODE_ENV === "development" ? "/" : "/asset-exit-strategies";
+
 	return (
 		<AuthProvider>
-			<Router basename="/AssetExitStrategies">
+			<Router basename={routerBaseName}>
 				<Routes>
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />

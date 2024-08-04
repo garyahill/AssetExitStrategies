@@ -36,6 +36,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
                 		name="NameInput"
                 		value={profile.Name}
                 		onChange={handleChange("Name")}
+                		autoComplete="off"
                 		required
                 	/>
                 </div>
@@ -61,6 +62,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 						onChange={handleChange("ProfileKey")}
 						placeholder={item.Watermark}
 						minLength={4}
+						autoComplete="off"
 						required
 					/>
 				</div>

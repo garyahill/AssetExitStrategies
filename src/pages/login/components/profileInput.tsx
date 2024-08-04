@@ -60,7 +60,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 						value={profile.ProfileKey}
 						onChange={handleChange("ProfileKey")}
 						placeholder={item.Watermark}
-						minLength={8}
+						minLength={4}
 						required
 					/>
 				</div>

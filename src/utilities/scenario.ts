@@ -1,9 +1,9 @@
 import { Asset, PriceLevel, TransientPriceLevel, ScenarioDisplayData } from "../models";
 
 const getDefaultAsset = (assets: Asset[]): Asset => {
-	const maxVal = assets.length > 0 ? (Math.max(...assets.map(obj => obj.Id)) + 1) : 1;
+	const maxVal = assets.length > 0 ? (Math.max(...assets.map(obj => obj.id)) + 1) : 1;
 	return {
-		Id: maxVal,
+		id: maxVal,
 		AssetName: "",
 		Method: "Units",
 		Quantity: 0,

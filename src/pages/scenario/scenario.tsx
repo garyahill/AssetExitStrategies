@@ -61,7 +61,7 @@ const Scenario: React.FC = () => {
 			setModalProperties({ ...modalProperties, isOpen: false });
 			if (retVal) {
 				setAppState({ ...appState, editingScenario: false });
-				removeScenario(asset.Id);
+				removeScenario(asset.id);
 				navigateToMain();
 			}
 		};
@@ -140,10 +140,12 @@ const Scenario: React.FC = () => {
 					</div>
 
 					<div className="middle-container">
+						<h2>{"Projected Outcome"}</h2>
+						{!asset.PriceLevels.length &&
+							<div className="no-rows-message">Add Asset Details and Price Levels to your scenario to view your exit strategy's projected outcome.</div>
+						}
 						{asset.PriceLevels.length > 0 &&
 						<>
-							<h2>{"Projected Outcome"}</h2>
-
 							<SummaryBar asset={asset} />
 
 							<ScenarioTable

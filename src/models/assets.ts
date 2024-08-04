@@ -1,7 +1,8 @@
 export type MethodType = "Units" | "Percentage";
 
 export interface Asset {
-	Id: number;
+	// `id` property must be lowercase for SortableJS; Do not change
+	id: number;
 	AssetName: string;
 	Method: MethodType;
 	Quantity: number;

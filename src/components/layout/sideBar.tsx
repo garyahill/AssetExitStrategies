@@ -36,7 +36,7 @@ const SideBar = () => {
 		}
 
 		return (
-			<li key={`Key_${asset.Id}`} onClick={onClick}>
+			<li key={`Key_${asset.id}`} onClick={onClick}>
 				<Link to={"/scenario"}>{asset.AssetName}</Link>
 			</li>
 		);

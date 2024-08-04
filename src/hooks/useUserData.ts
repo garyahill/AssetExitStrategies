@@ -38,7 +38,7 @@ const useUserData = () => {
 
 	const addOrUpdateScenario = (asset: Asset) => {
 		let updatedAssets = [...assets];
-		const index = assets.findIndex(currentAsset => currentAsset.Id === asset.Id);
+		const index = assets.findIndex(currentAsset => currentAsset.id === asset.id);
 		if (index === -1) {
 			updatedAssets = [...updatedAssets, asset];
 		} else {
@@ -50,7 +50,7 @@ const useUserData = () => {
 	};
 
 	const removeScenario = (assetId: number) => {
-		const updatedAssets = assets.filter(asset => asset.Id !== assetId);
+		const updatedAssets = assets.filter(asset => asset.id !== assetId);
 		setAssets(updatedAssets);
 		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
 	};

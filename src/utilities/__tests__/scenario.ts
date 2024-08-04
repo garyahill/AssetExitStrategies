@@ -12,12 +12,12 @@ import { Asset, PriceLevel, ScenarioDisplayData } from "../../models" // Adjust 
 
 // Mock Data
 const mockAssets: Asset[] = [
-	{ Id: 1, AssetName: "Asset 1", Method: "Units", Quantity: 100, PriceLevels: [], SortOrder: 1 },
-	{ Id: 2, AssetName: "Asset 2", Method: "Percentage", Quantity: 200, PriceLevels: [], SortOrder: 2 },
+	{ id: 1, AssetName: "Asset 1", Method: "Units", Quantity: 100, PriceLevels: [], SortOrder: 1 },
+	{ id: 2, AssetName: "Asset 2", Method: "Percentage", Quantity: 200, PriceLevels: [], SortOrder: 2 },
 ];
 
 const mockAsset: Asset = {
-	Id: 1,
+	id: 1,
 	AssetName: "Test Asset",
 	Method: "Units",
 	Quantity: 100,
@@ -31,7 +31,7 @@ const mockAsset: Asset = {
 describe("getDefaultAsset", () => {
 	it("returns a new default asset with an incremented Id", () => {
 		const newAsset = getDefaultAsset(mockAssets);
-		expect(newAsset.Id).toBe(3);
+		expect(newAsset.id).toBe(3);
 		expect(newAsset.AssetName).toBe("");
 		expect(newAsset.Method).toBe("Units");
 		expect(newAsset.Quantity).toBe(0);
@@ -40,7 +40,7 @@ describe("getDefaultAsset", () => {
 
 	it("returns an asset with Id 1 if asset list is empty", () => {
 		const newAsset = getDefaultAsset([]);
-		expect(newAsset.Id).toBe(1);
+		expect(newAsset.id).toBe(1);
 	});
 });
 

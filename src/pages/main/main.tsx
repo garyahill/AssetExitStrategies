@@ -1,11 +1,11 @@
 import React from "react";
+import { ReactSortable } from "react-sortablejs";
 import useUserData from "../../hooks/useUserData";
 import useNavigation from "../../hooks/useNavigation";
 import useAppState from "../../hooks/useAppState";
 import NoAssets from "./components/noAssets";
 import AssetCard from "./components/assetCard";
 import InfoTooltip from "../../components/controls/infoTooltip";
-import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
 import { Asset } from "../../models";
 import "./main.less";
 
@@ -18,18 +18,21 @@ const Main = () => {
 	const infoText = `Select an asset to display your exit strategy or 
     drag and drop items to rearrange asset layout.`;
 
-	const onDragEnd = (result: DropResult) => {
-		if (!result.destination) return;
+	const handleItemClick = (asset: Asset) => {
+		setAppState({
+			...appState,
+			assetBeingDisplayed: asset,
+			assetBeingEdited: undefined,
+		});
+		navigateToDisplay();
+	};
 
-		const reorderedAssets = Array.from(assets);
-		const [movedAsset] = reorderedAssets.splice(result.source.index, 1);
-		reorderedAssets.splice(result.destination.index, 0, movedAsset);
-
-		const updatedAssets = reorderedAssets.map((asset: Asset, index: number) => ({
+	const handleUpdateAssets = (newAssets: Asset[]) => {
+		// Update SortOrder after drag-and-drop
+		const updatedAssets = newAssets.map((asset, index) => ({
 			...asset,
-			SortOrder: index, // Assign new index as the sort value
+			SortOrder: index + 1,
 		}));
-
 		updateAssets(updatedAssets);
 	};
 
@@ -46,47 +49,13 @@ const Main = () => {
 							<InfoTooltip tooltipText={infoText} />
 						</div>
 					</div>
-					<DragDropContext onDragEnd={onDragEnd}>
-						<Droppable droppableId="assets">
-							{(provided) => (
-								<div
-									className="assets-container"
-									{...provided.droppableProps}
-									ref={provided.innerRef}
-								>
-									{assets.map((asset, index) => {
-										const onClick = () => {
-											setAppState({
-												...appState,
-												assetBeingDisplayed: asset,
-												assetBeingEdited: undefined,
-											});
-											navigateToDisplay();
-										};
-
-										return (
-											<Draggable
-												key={asset.Id}
-												draggableId={`Key_${asset.Id}`}
-												index={index}
-											>
-												{(provided) => (
-													<div
-														ref={provided.innerRef}
-														{...provided.draggableProps}
-														{...provided.dragHandleProps}
-													>
-														<AssetCard asset={asset} onCardClick={onClick} />
-													</div>
-												)}
-											</Draggable>
-										);
-									})}
-									{provided.placeholder}
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
+					<ReactSortable list={assets} setList={handleUpdateAssets} className="assets-container">
+						{assets.map((asset) => (
+							<div key={asset.id}>
+								<AssetCard asset={asset} onCardClick={() => handleItemClick(asset)} />
+							</div>
+						))}
+					</ReactSortable>
 				</>
 			)}
 		</div>

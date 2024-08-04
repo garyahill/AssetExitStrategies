@@ -17,32 +17,33 @@ export const defaultAppState: AppState = { editingScenario: false, assetBeingEdi
 export const defaultAssets: Asset[] = [];
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-	// TODO: The commented code below is the code to be used in the final implementation
-	// const [profile, setProfile] = useState<Profile>(defaultProfile);
-	// const [assets, setAssets] = useState<Asset[]>(defaultAssets);
+	// TODO: DEV Code: The 2 lines code below is the code to be used when deploying the app
+	const [profile, setProfile] = useState<Profile>(defaultProfile);
+	const [assets, setAssets] = useState<Asset[]>(defaultAssets);
+
 	const [appState, setAppState] = useState<AppState>(defaultAppState);
 
-	// TODO: The code below is for testing and developement purposes only
-	const TESTING_STORAGE_KEY = "garyahill_1234";
+	// TODO: DEV Code: The code below is for testing and developement purposes only
+	// const TESTING_STORAGE_KEY = "garyahill_1234";
 
-	const [profile, setProfile] = useState<Profile>(() => {
-		const storedProfile = localStorage.getItem(TESTING_STORAGE_KEY);
-		if (storedProfile) {
-			const userData: UserData = JSON.parse(storedProfile);
-			return userData.Profile;
-		}
-		return defaultProfile;
-	});
+	// const [profile, setProfile] = useState<Profile>(() => {
+	// 	const storedProfile = localStorage.getItem(TESTING_STORAGE_KEY);
+	// 	if (storedProfile) {
+	// 		const userData: UserData = JSON.parse(storedProfile);
+	// 		return userData.Profile;
+	// 	}
+	// 	return defaultProfile;
+	// });
 
-	const [assets, setAssets] = useState<Asset[]>(() => {
-		const storedProfile = localStorage.getItem(TESTING_STORAGE_KEY);
-		if (storedProfile) {
-			const userData: UserData = JSON.parse(storedProfile);
-			return userData.Assets;
-		}
-		return defaultAssets;
-	});
-	// TODO: The code above is for testing and developement purposes only
+	// const [assets, setAssets] = useState<Asset[]>(() => {
+	// 	const storedProfile = localStorage.getItem(TESTING_STORAGE_KEY);
+	// 	if (storedProfile) {
+	// 		const userData: UserData = JSON.parse(storedProfile);
+	// 		return userData.Assets;
+	// 	}
+	// 	return defaultAssets;
+	// });
+	// TODO: DEV Code: End DEV Code
 
 	return (
 		<AppContext.Provider value={{ profile, assets, appState, setProfile, setAssets, setAppState }}>

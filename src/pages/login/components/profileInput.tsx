@@ -16,7 +16,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 	const loginButtonDisabled = !profile.UserName || !profile.ProfileKey;
 	const createButtonDisabled = !profile.UserName || (profile.ProfileKey.length < 8) || !profile.Name;
 
-	const item = isCreate ? { Text: "Home", Location: "/", Watermark: "Minimum 8 characters", Type: "text" } :
+	const item = isCreate ? { Text: "Home", Location: "/", Watermark: "Minimum 4 characters", Type: "text" } :
 		{ Text: "New Account", Location: "/newaccount", Watermark: undefined, Type: "password" };
 
 	function handleChange(property: keyof typeof profile) {

@@ -13,10 +13,10 @@ import Display from "./pages/display/display";
 const App: React.FC = () => {
 
 	// TODO: Remove this useEffect; it's just for testing purposes
-	useEffect(() => {
-		// eslint-disable-next-line no-console
-		console.log("NODE_ENV:", process.env.NODE_ENV);
-	}, []);
+	// useEffect(() => {
+	// 	// eslint-disable-next-line no-console
+	// 	console.log("NODE_ENV:", process.env.NODE_ENV);
+	// }, []);
 
 	return (
 		<AuthProvider>

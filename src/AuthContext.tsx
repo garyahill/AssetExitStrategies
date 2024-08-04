@@ -12,12 +12,12 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-	// TODO: Having this block of code allows you to bypass the login screen in development
-	useEffect(() => {
-		if (process.env.NODE_ENV === "development") {
-			setIsAuthenticated(true);
-		}
-	}, []);
+	// TODO: DEV CODE: Having this block of code allows you to bypass the login screen in development
+	// useEffect(() => {
+	// 	if (process.env.NODE_ENV === "development") {
+	// 		setIsAuthenticated(true);
+	// 	}
+	// }, []);
 
 	const login = () => setIsAuthenticated(true);
 	const logout = () => setIsAuthenticated(false);

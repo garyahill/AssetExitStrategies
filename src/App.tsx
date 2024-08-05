@@ -12,13 +12,15 @@ import Display from "./pages/display/display";
 
 const App: React.FC = () => {
 
-	// TODO: Remove this useEffect; it's just for testing purposes
+	// TODO: DEV CODE: Remove this useEffect; it's just for testing purposes
 	// useEffect(() => {
 	// 	// eslint-disable-next-line no-console
 	// 	console.log("NODE_ENV:", process.env.NODE_ENV);
 	// }, []);
 
-	const routerBaseName = process.env.NODE_ENV === "development" ? "/" : "/AssetExitStrategies";
+
+	// Set the router base name based on the NODE_ENV environment variable
+	const routerBaseName = process.env.NODE_ENV !== "development" ? "/AssetExitStrategies" : "/";
 
 	return (
 		<AuthProvider>

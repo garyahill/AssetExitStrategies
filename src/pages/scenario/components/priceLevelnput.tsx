@@ -50,8 +50,14 @@ const PriceLevelInput: React.FC<PriceLevelInputProps> = ({ asset, priceLevelBein
 	}
 
 	function handlePriceLevelChange(property: keyof typeof priceLevel) {
-		return (e: React.ChangeEvent<HTMLInputElement>) =>
-			setPriceLevel({ ...priceLevel, [property]: Number(e.target.value) });
+		return (e: React.ChangeEvent<HTMLInputElement>) => {
+			if (property === "Quantity" && asset.Method === "Percentage") {
+				setPriceLevel({ ...priceLevel, [property]: e.target.value });
+			} else {
+				setPriceLevel({ ...priceLevel, [property]: Number(e.target.value) });
+			}
+		};
+
 	}
 
 	return (

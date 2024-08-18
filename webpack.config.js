@@ -20,7 +20,7 @@ let config = {
         filename: "[name].[contenthash].js",
         chunkFilename: "[name].[contenthash].js",
         clean: true, // cleans the output folder before building
-        publicPath: '/', // Ensure that all routes are served correctly
+        publicPath: isProduction ? "/AssetExitStrategies/" : "/",
     },
 
     mode: isProduction ? "production" : "development",

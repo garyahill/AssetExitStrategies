@@ -27,7 +27,7 @@ const Display: React.FC = () => {
 			<div className="heading-container">
 				<h2>{asset.AssetName}</h2>
 				<div>
-					<button className={"unicode-button"} title="Cancel" onClick={cancel}>❌</button>
+					<button className={"unicode-button"} title="Close" onClick={cancel}>❌</button>
 				</div>
 			</div>
 			<div className="content-container">

@@ -1,0 +1,37 @@
+@import "../../../theme/palette.less";
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    background-color: rgba(0, 0, 0, 0.5); // Adds a semi-transparent overlay
+    z-index: 1000;
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .loading-spinner {
+        border: 16px solid @primary-light;
+        border-top: 16px solid @primary-dark;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin 2s linear infinite;
+    }
+
+    .loading-text {
+        margin-bottom: 15px;
+        font-size: 2rem;
+        color: @primary-dark;
+        position: relative;
+        left: 13px;
+    }
+}

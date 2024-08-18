@@ -24,6 +24,10 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 			onChange({ ...profile, [property]: e.target.value });
 	}
 
+	function clearInputs() {
+		onChange({ UserName: "", ProfileKey: "", Name: "" });
+	}
+
 	return (
 		<div className="profile-form-container">
 			<form>
@@ -67,7 +71,7 @@ const ProfileInput: React.FC<ProfileInputProps> = (props) => {
 					/>
 				</div>
 				<div className="form-group">
-					<Link className="link-button" to={item.Location}>{item.Text}</Link>
+					<Link className="link-button" onClick={clearInputs} to={item.Location}>{item.Text}</Link>
 					<button
 						className={"button-primary"}
 						disabled={isCreate ? createButtonDisabled : loginButtonDisabled}

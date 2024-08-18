@@ -16,30 +16,26 @@ let config = {
     // the entry point to the app
     entry: "./src/index.tsx",
     output: {
-        // the folder path of the output file 
-        path: path.resolve(__dirname, "dist"),
-        // the name of the output file 
-        filename: "bundle.js",
+        path: path.resolve(__dirname, isProduction ? "build" : "dist"),
+        filename: "[name].[contenthash].js",
+        chunkFilename: "[name].[contenthash].js",
         clean: true, // cleans the output folder before building
         publicPath: '/', // Ensure that all routes are served correctly
     },
 
-    // source map for debugging - it is added to the output file (bundle.js in this case)
-    devtool: "inline-source-map", // Note: use "source-map" for production
+    mode: isProduction ? "production" : "development",
+    devtool: isProduction ? "source-map" : "inline-source-map",
 
-    // the environment - development, production, none. tells webpack what optimizations to use; default is production 
-    mode: "development",
-
-    devServer: {
-        port: "9500", // the port to run the server on
-        static: "./dist", // the folder to serve the files from
-        open: true, // opens the browser after server is successfully started
-        hot: false, // Note: "hot" must be set to false for "liveReload" to work
-        watchFiles: ["src/**/*", "index.html"], // watches the files for changes
-        historyApiFallback: true, // This ensures that all routes are served with index.html
+    devServer: isProduction ? undefined : {
+        port: "9500",
+        static: "./dist",
+        open: true,
+        hot: false,
+        watchFiles: ["src/**/*", "index.html"],
+        historyApiFallback: true,
         // liveReload: true, // reloads  page when files change, true by default; watch files above can be more specific
     },
-
+    
     target: "web", // "node" or "web" (web is default)
 
     resolve: {
@@ -55,8 +51,8 @@ let config = {
             template: './index.html',
             filename: 'index.html'
          }),
-        new MiniCssExtractPlugin({
-            filename: "bundle.css"
+         new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css"
         }),
         // TODO: Add CopyWebpackPlugin to copy images to the build directory
         new CopyWebpackPlugin({
@@ -110,19 +106,31 @@ let config = {
 				type: 'asset/inline',
 			},
         ]
-    }
-}
-
-if(isProduction){
-    config.mode = "production";
-    config.devServer = undefined;
-    config.devtool = "source-map";
-    config.watch = false;
-    config.output = {
-        path: path.resolve(__dirname, "build"),
-        filename: "bundle.js",
-        clean: true // cleans the output folder before building
-    };
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        // Safely try to find the package name
+                        const match = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
+                        if (match) {
+                            const packageName = match[1];
+                            return `npm.${packageName.replace('@', '')}`;
+                        }
+                    
+                        // Return a default name or handle the case where no match is found
+                        return "miscellaneous";
+                    },                    
+                },
+            },
+        },
+    },
+    
 }
 
 module.exports = config;

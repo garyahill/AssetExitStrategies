@@ -1,0 +1,36 @@
+.asset-display-container .heading-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.asset-display-container .content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.asset-display-container .content-container .table-container {
+  flex: 0 0 95%;
+  margin-bottom: 10px;
+}
+.asset-display-container .content-container .chart-container {
+  flex: 0 0 95%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.asset-display-container .content-container .chart-container > div {
+  margin-top: 25px;
+  width: 28%;
+  box-sizing: border-box;
+  height: 300px;
+}
+.asset-display-container .unicode-button {
+  font-size: 1.25em;
+  padding: 0;
+  background-color: transparent;
+}
+
+
+/*# sourceMappingURL=219.a6ace78a3ced351f16c5.css.map*/

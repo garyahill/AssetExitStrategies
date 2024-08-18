@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkasset_exit_strategies=self.webpackChunkasset_exit_strategies||[]).push([[932],{4932:(e,t,s)=>{s.d(t,{A:()=>i});var a=s(6540);const i=({tooltipText:e,tooltipWidth:t="150px"})=>a.createElement("div",{className:"tooltip"},a.createElement("span",{className:"info-icon"},"ℹ️"),a.createElement("div",{className:"tooltiptext",style:{width:t}},e))}}]);
+//# sourceMappingURL=932.54bad7323dec6e1d848f.js.map

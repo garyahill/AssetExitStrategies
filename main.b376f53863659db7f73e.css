@@ -67,7 +67,7 @@
   background-color: #0c47a1;
   color: #ffffff;
   text-align: center;
-  padding: 10px 0;
+  padding: 8px 0;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -240,8 +240,8 @@ button {
   justify-content: center;
   max-width: 52.5%;
 }
-.image-container {
-  margin-bottom: 20px;
+.welcome-container h2 {
+  margin: 15px 0 15px 0;
 }
 
 .content-container {
@@ -343,4 +343,4 @@ button {
 }
 
 
-/*# sourceMappingURL=main.dea97cf21e0a08022c5d.css.map*/
+/*# sourceMappingURL=main.b376f53863659db7f73e.css.map*/

@@ -3,6 +3,7 @@ import useAppContext from "./useAppContext";
 import useAuthentication from "../hooks/useAuthentication";
 import { getUserDataFromLocalStorage, saveUserDataToLocalStorage } from "../utilities/storage";
 import { defaultAppState, defaultProfile, defaultAssets } from "../AppContext";
+import GetDemoData from "../data/demoData";
 
 const useUserData = () => {
 	const { assets, profile, setAssets, setProfile, appState, setAppState } = useAppContext();
@@ -65,6 +66,10 @@ const useUserData = () => {
 		saveUserDataToLocalStorage(getStorageKey(profile), { Profile: profile, Assets: updatedAssets });
 	};
 
+	const loadDemoData = () => {
+		updateAssets([...GetDemoData()]);
+	};
+
 	return {
 		profile,
 		assets,
@@ -78,6 +83,7 @@ const useUserData = () => {
 		loadExistingProfile,
 		unloadProfile,
 		updateAssets,
+		loadDemoData,
 	};
 };
 

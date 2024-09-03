@@ -8,7 +8,7 @@ import FAQModal from "./faqModal";
 import "../../theme/global.less";
 import "./layout.less";
 
-const noSideBar = ["/", "/login", "/newaccount", "/scenario"];
+const noSideBar = ["/", "/login", "/newaccount", "/scenario", "/display"];
 
 const faqModalProperties: ModalProperties = {
 	isOpen: false,

@@ -10,7 +10,7 @@ import { Asset } from "../../models";
 import "./main.less";
 
 const Main = () => {
-	const { profile, assets, updateAssets } = useUserData();
+	const { profile, assets, updateAssets, loadDemoData } = useUserData();
 	const { navigateToDisplay } = useNavigation();
 	const { appState, setAppState } = useAppState();
 	const noAssets = assets.length === 0;
@@ -40,7 +40,7 @@ const Main = () => {
 		<div className="main-container">
 			<h2>{`Welcome ${profile.Name}`}</h2>
 			{noAssets ? (
-				<NoAssets />
+				<NoAssets onLoadDemoData={loadDemoData} />
 			) : (
 				<>
 					<div className="title-container">

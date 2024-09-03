@@ -17,7 +17,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ modalProperties }) => {
 			primaryButtonText={modalProperties.primaryButtonText}
 			headerText={modalProperties!.headerText}
 			height="500px"
-			top="36%"
+			top="45%"
 		>
 			<FaqList />
 		</CustomModal>

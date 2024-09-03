@@ -13,6 +13,17 @@
   margin-bottom: 100px;
   padding-left: 50px;
 }
+.no-assets-container button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: #0c47a1;
+  text-decoration: none;
+}
+.no-assets-container button:hover {
+  text-decoration: underline;
+}
 
 .asset-card-container .asset-card {
   border: 1px solid #4d90fe;
@@ -66,4 +77,4 @@
 }
 
 
-/*# sourceMappingURL=589.3f5fc63ece366e2e0b05.css.map*/
+/*# sourceMappingURL=589.87be257f463d8a703690.css.map*/

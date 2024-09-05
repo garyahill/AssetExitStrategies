@@ -264,19 +264,22 @@ button {
 .profile-form-container {
   padding: 20px;
 }
-.profile-form-container .form-group button {
-  width: 137px;
-}
 .profile-form-container .form-group:last-of-type {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .profile-form-container .form-group:last-of-type .link-button {
   box-sizing: border-box;
-  width: 148px;
+  flex: 1;
+  max-width: calc(50% - 5px);
+  margin-right: 10px;
+  min-width: 136px;
 }
 .profile-form-container .form-group:last-of-type button {
-  width: 148px;
+  flex: 1;
+  max-width: calc(50% - 5px);
+  margin-left: 10px;
 }
 
 .message-container {
@@ -343,4 +346,4 @@ button {
 }
 
 
-/*# sourceMappingURL=main.b376f53863659db7f73e.css.map*/
+/*# sourceMappingURL=main.6e90ab00af6f3632c973.css.map*/

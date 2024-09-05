@@ -184,7 +184,7 @@
 }
 .scenario-container .scenario-button-container {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   margin-top: 20px;
 }
 .scenario-container .scenario-button-container button {
@@ -196,4 +196,4 @@
 }
 
 
-/*# sourceMappingURL=204.74f8a62beff788fa2158.css.map*/
+/*# sourceMappingURL=204.e9c23fec69ceed1f8f88.css.map*/

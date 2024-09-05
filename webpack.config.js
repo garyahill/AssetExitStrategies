@@ -33,7 +33,9 @@ let config = {
         hot: false,
         watchFiles: ["src/**/*", "index.html"],
         historyApiFallback: true,
-        // liveReload: true, // reloads  page when files change, true by default; watch files above can be more specific
+        // the following options are for the dev server to allow access from browser stack
+        allowedHosts: "all",  // Allows all hosts to connect
+        host: "0.0.0.0",      // Ensures the server listens on all network interfaces
     },
     
     target: "web", // "node" or "web" (web is default)

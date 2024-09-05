@@ -1,4 +1,1 @@
-# Asset Exit Strategies Application
-React, TypeScript, Less Application
-
-#TODO - Write a real readme
+Asset Exit Strategies is a tool to help you plan and visualize sales of financial assets. Using this tool, you can create a laddering exit strategy for as many different assets as you like. Additionally, you create and compare multiple strategies for the same asset.
